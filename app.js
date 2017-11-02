@@ -4,7 +4,7 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-
+var http = require('http');
 var index = require('./routes/index');
 var users = require('./routes/users');
 
@@ -44,6 +44,53 @@ app.use(function(err, req, res, next) {
 });
 
 module.exports = app;
-app.listen(3000, function () {
-    console.log('Example app listening on port 3000!')
+
+// var server = require('http').createServer(app);
+// io = require('socket.io')(server);
+// io.on('connection',function(client){
+//   console.log(client);
+//   client.on('event', function(data){});
+//   client.on('disconnect', function(){});
+//   socket.emit('toclient',{msg:'Welcome !'});
+// });
+// server.listen(5000, function () {
+//   console.log('Example app listening on port 5000!')
+// });
+
+
+var httpServer =http.createServer(app).listen(3000, function(req,res){
+  console.log('Socket IO server has been started 3000!');
+});
+// upgrade http server to socket.io server
+io = require('socket.io').listen(httpServer);
+
+io.sockets.on('connection', function(socket) {
+
+  // on public
+  socket.on('join', function (data) {
+    io.sockets.emit('join', socket.id, data);
+  });
+
+  // on broadcast
+  socket.on('message', function (data) {
+    console.log(socket.id);
+    console.log(data);
+    socket.emit('my message', socket.id, data);
+    socket.broadcast.emit('other message', socket.id, data);
+  });
+
+  // on privat
+  socket.on('whisper', function (id, data, fn) {
+    if (id && io.sockets.sockets[id]) {
+      io.sockets.sockets[id].emit('whisper', socket.id, data);
+      fn(true);
+    } else {
+      fn(false);
+    }
+  });
+
+  socket.on('disconnect', function () {
+    socket.broadcast.emit('close', socket.id);
+  });
+
 });

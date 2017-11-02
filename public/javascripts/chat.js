@@ -1,3 +1,7 @@
+
+var socket = io.connect('http://localhost:3000');
+// var socket = io.connect('http://ec2-52-68-168-194.ap-northeast-1.compute.amazonaws.com:9000');
+
 (function () {
     var Message;
     Message = function (arg) {
@@ -15,27 +19,23 @@
         }(this);
         return this;
     };
+    var getMessageText, message_side, sendMessage;
     $(function () {
-        var getMessageText, message_side, sendMessage;
         message_side = 'right';
         getMessageText = function () {
             var longAndComplicatedFunction = function(koText) {
                 var deferred = $.Deferred();
                 try {
-                    var translateText = getTextData(thisText);
-                    if(translateText === undefined){
-                        translateAPI(koText,function(data){
-                            var jaText = data;
-                            pushData(koText,jaText);
-                            deferred.resolve({
-                                ko : koText,
-                                ja : jaText
-                            });
-                        });
-                    }else{
-                        deferred.resolve(translateText.data);
-                    }
-
+                    textTranslate({
+                        sendText : koText,
+                        checkKey : false,
+                        autoKey : true,
+                        resultLang : 'ja',
+                        cb : function(translateText){
+                            console.log(translateText);
+                            deferred.resolve(translateText);
+                        }
+                    });
                 } catch (err) {
                     deferred.reject(err);
                 }
@@ -44,8 +44,6 @@
             var $message_input;
             $message_input = $('.message_input');
             var thisText = $message_input.val();
-
-
 
             return longAndComplicatedFunction(thisText).done(function(message) {
                 return message;
@@ -59,14 +57,14 @@
 
 
         };
-        sendMessage = function (text) {
+        sendMessage = function (text,message_side) {
             var $messages, message;
             if (text.trim() === '') {
                 return;
             }
             $('.message_input').val('');
             $messages = $('.messages');
-            message_side = message_side === 'left' ? 'right' : 'left';
+            //message_side = message_side === 'left' ? 'right' : 'left';
             console.log(text);
             message = new Message({
                 text: text,
@@ -77,15 +75,13 @@
         };
         $('.send_message').click(function (e) {
             return getMessageText().then(function(translateResult){
-
-                sendMessage(translateResult.ko+ "<br>" +translateResult.ja);
+                socket.emit('message', translateResult);
             });
         });
         $('.message_input').keyup(function (e) {
             if (e.which === 13) {
                 return getMessageText().then(function(translateResult){
-
-                    sendMessage(translateResult.ko+ "<br>" +translateResult.ja);
+                    socket.emit('message', translateResult);
                 });
             }
         });
@@ -97,4 +93,14 @@
         //     return sendMessage('I\'m fine, thank you!');
         // }, 2000);
     });
+    socket.on('my message', function (socketId,translateResult) {
+        sendMessage(translateResult.sendText+ "<br>" +translateResult.ja,'right');
+    });
+    socket.on('other message',function(socketId,translateResult){
+        sendMessage(translateResult.sendText+ "<br>" +translateResult.ja,'left');
+    });
 }.call(this));
+
+$(document).ready(function(){
+   $('.messages').css('height',$('.chat_window')[0].offsetHeight-($('.bottom_wrapper')[0].offsetHeight+$('.top_menu')[0].offsetHeight)+'px');
+});
