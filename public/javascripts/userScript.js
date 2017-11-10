@@ -4,5 +4,7 @@
 
 
 $(document).ready(function(){
-    translateInit();
+    translateInit(function(){
+        chat.init();
+    });
 });

@@ -8,12 +8,13 @@ var config = {
 firebase.initializeApp(config);
 
 var BASELANG = 'ko',
-    DATABASE = undefined;
+    DATABASE = undefined,
+    defaultPath = '/translate';
 
 var getDataBase = function (cb) {
     return new Promise(function (resolve, reject) {
         DATABASE = firebase.database();
-        DATABASE.ref().on('value', function (data) {
+        DATABASE.ref(defaultPath).on('value', function (data) {
             var database = data.val();
             DBData = Object.keys(database).map(function (data) {
                 return {
@@ -60,7 +61,7 @@ function changeDBText(originalText,changeText,translateTextObj){
         sendText = translateTextObj.data.sendText;
     }
 
-    firebase.database().ref().child('/'+translateTextObj.id).set({
+    DATABASE.ref(defaultPath).child('/'+translateTextObj.id).set({
         sendText : sendText,
         ja : jaText,
         ko : koText
@@ -110,7 +111,7 @@ function textTranslate(parmas){
             if (bl) {
                 // if(1){
                 var jaText = "";
-                translateAPIGoogle(sendText, sendLang, resultLang, function (data) {
+                translateAPI(sendText, sendLang, resultLang, function (data) {
                     var translatedText = data.translatedText;
                     var baseLang = data.srcLangType;
 
@@ -119,7 +120,7 @@ function textTranslate(parmas){
 
                         //자동번역기능 만들기
                         if (canTranslateApi(getTextData(sendText, sendLang).data, resultLang)) {
-                            translateAPIGoogle(sendText, resultLang, sendLang, function (data) {
+                            translateAPI(sendText, resultLang, sendLang, function (data) {
                                 var translatedText = data.translatedText;
                                 translateCB(translatedText, resultLang);
                             });
@@ -132,7 +133,7 @@ function textTranslate(parmas){
 
                 });
 
-                function translateCB(translatedText, resultLang) {
+                function translateCB(translatedText, resultLang,cb) {
 
                     // console.log("sendText : "+ sendText + "translatedText : " + translatedText + "baseLang : " + baseLang);
                     if (resultLang == "ja") {
@@ -150,7 +151,7 @@ function textTranslate(parmas){
                 resolve(translateTextObj.data);
             }
 
-            //firebase.database().ref().on('child_added', function(data) {
+            //DATABASE.ref(defaultPath).on('child_added', function(data) {
             //    var database = data.val();
             //    resolve(database);
             //});
@@ -174,7 +175,7 @@ function textTranslate(parmas){
 
                 }
 
-                firebase.database().ref().child('/').push({
+                DATABASE.ref(defaultPath).child('/').push({
                     sendText : sendText,
                     ja : jaText,
                     ko : koText
@@ -313,32 +314,6 @@ function translateAPI(sendText,sendLang,resultLang,cb){
 
 }
 
-function translateAPIGoogle(sendText,sendLang,resultLang,cb){
-    console.log(sendText,sendLang,resultLang,cb);
-    var apiUrl = "";
-    $.ajax({
-        type: 'GET',
-        beforeSend: function (request) {
-            request.setRequestHeader("content-type", 'text/javascript');
-        },
-        url: apiUrl+'/translateGoogle',
-        data : { text : sendText, sendLang : sendLang, resultLang : resultLang},
-        dataType: "json",
-        contentType: "application/json; charset=utf-8",
-        success: function(data) {
-            // console.log('success'+data);
-            var resultData ={
-                srcLangType:data.from.language.iso,
-                translatedText:data.text
-            };
-            if(cb){
-                cb(resultData);
-            }
-        }
-    });
-
-}
-
 // function getTextData(text){
 //     var textData = DBData.filter(function(item){
 //         return item.data.ko === text;
@@ -425,7 +400,7 @@ function getTextData(sendText,resultLang){
     }
 }
 
-function translateInit(){
+function translateInit(cb){
 
     getDataBase("cbTrue")
         .then(function (DBData) {
@@ -433,6 +408,9 @@ function translateInit(){
             console.log(DBData);
             addClickCss();
             addPopupHTML();
+            if(cb){
+                cb();
+            }
         }, function (error) {
             // 실패시
             console.error(error);

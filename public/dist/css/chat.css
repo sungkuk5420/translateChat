@@ -67,9 +67,17 @@ body {
   transition: all 0.5s linear;
   opacity: 0; }
 
+.messages .message.right {
+  padding-right: 50px; }
+
+.messages .message.left {
+  padding-left: 50px; }
+
 .messages .message.left .avatar {
   background-color: #f5886e;
-  float: left; }
+  float: left;
+  position: absolute;
+  left: 5px; }
 
 .messages .message.left .text_wrapper {
   background-color: #ffe6cb;
@@ -84,7 +92,9 @@ body {
 
 .messages .message.right .avatar {
   background-color: #fdbf68;
-  float: right; }
+  float: right;
+  position: absolute;
+  right: 5px; }
 
 .messages .message.right .text_wrapper {
   background-color: #c7eafc;
@@ -109,9 +119,8 @@ body {
 
 .messages .message .text_wrapper {
   display: inline-block;
-  padding: 20px;
+  padding: 10px 15px;
   border-radius: 6px;
-  /*width: calc(100% - 85px);*/
   min-width: 100px;
   position: relative; }
 

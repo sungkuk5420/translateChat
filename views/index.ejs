@@ -4,18 +4,119 @@
     <title><%= title %></title>
       <meta name="viewport" content="width=device-width, user-scalable=no">
     <link rel='stylesheet' href='/dist/css/default.css' />
-
-      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-      <link rel="stylesheet" href="/stylesheets/chat.css">
+      <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">-->
+      <!--<link rel="stylesheet" href="/stylesheets/chat.css">-->
+      <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700' rel='stylesheet' type='text/css'>
+      <link rel="stylesheet" href="/stylesheets/materialChat.css">
+      <script src="/socket.io/socket.io.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/bluebird/3.3.4/bluebird.min.js"></script>
   </head>
   <body>
-        <div class="chat_window"><div class="top_menu"><div class="buttons"><div class="button close"></div><div class="button minimize"></div><div class="button maximize"></div></div><div class="title">Chat</div></div>
-            <ul class="messages"></ul><div class="bottom_wrapper clearfix"><div class="message_input_wrapper"><input class="message_input" placeholder="Type your message here..." /></div><div class="send_message"><div class="icon"></div><div class="text">Send</div></div></div></div><div class="message_template"><li class="message"><div class="avatar"></div><div class="text_wrapper"><div class="text"></div></div></li></div>
+      <div id="chatbox">
+          <div id="friendslist">
+              <div id="topmenu">
+                  <!--<span class="friends"></span>-->
+                  <span class="chats active"></span>
+                  <!--<span class="addChat"></span>-->
+                  <!--<span class="history"></span>-->
+              </div>
 
-        <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+              <div id="friends">
+                  <div class="friend">
+                      <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/245657/1_copy.jpg" />
+                      <p>
+                          <strong>public chat</strong>
+                          <span>공개 채팅방입니다.</span>
+                      </p>
+                      <div class="status available"></div>
+                  </div>
+
+                  <!--<div class="friend">-->
+                      <!--<img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/245657/2_copy.jpg" />-->
+                      <!--<p>-->
+                          <!--<strong>Martin Joseph</strong>-->
+                          <!--<span>marjoseph@gmail.com</span>-->
+                      <!--</p>-->
+                      <!--<div class="status away"></div>-->
+                  <!--</div>-->
+
+                  <!--<div class="friend">-->
+                      <!--<img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/245657/3_copy.jpg" />-->
+                      <!--<p>-->
+                          <!--<strong>Tomas Kennedy</strong>-->
+                          <!--<span>tomaskennedy@gmail.com</span>-->
+                      <!--</p>-->
+                      <!--<div class="status inactive"></div>-->
+                  <!--</div>-->
+
+                  <!--<div class="friend">-->
+                      <!--<img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/245657/4_copy.jpg" />-->
+                      <!--<p>-->
+                          <!--<strong>Enrique	Sutton</strong>-->
+                          <!--<span>enriquesutton@gmail.com</span>-->
+                      <!--</p>-->
+                      <!--<div class="status inactive"></div>-->
+                  <!--</div>-->
+
+                  <!--<div class="friend">-->
+                      <!--<img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/245657/5_copy.jpg" />-->
+                      <!--<p>-->
+                          <!--<strong>	Darnell	Strickland</strong>-->
+                          <!--<span>darnellstrickland@gmail.com</span>-->
+                      <!--</p>-->
+                      <!--<div class="status inactive"></div>-->
+                  <!--</div>-->
+
+                  <div id="search">
+                      <input type="text" id="searchfield" value="Search contacts..." />
+                  </div>
+
+              </div>
+
+          </div>
+
+          <div id="chatview" class="p1">
+              <div id="profile">
+
+                  <div id="close">
+                      <div class="cy"></div>
+                      <div class="cx"></div>
+                  </div>
+
+                  <p>Miro Badev</p>
+                  <span>miro@badev@gmail.com</span>
+              </div>
+              <div id="chat-messages">
+                  <label>Thursday 02</label>
+
+                  <div class="message" v-bind:id="thisMsg.id" v-bind:class="thisMsg.msgType== 'my' ? 'right' : '' " v-for="thisMsg in messages">
+                      <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/245657/1_copy.jpg" />
+                      <div class="bubble">
+                          {{thisMsg.sendText}}
+                          <div class="translateDiv">
+                              {{thisMsg.translateText}}
+                          </div>
+                          <div class="corner"></div>
+                          <span>{{thisMsg.timeStamp}}</span>
+                      </div>
+                  </div>
+
+
+
+              </div>
+
+              <div id="sendmessage">
+                  <input type="text" value="Send message..." class="message_input" />
+                  <button class="send_message"></button>
+              </div>
+
+          </div>
+      </div>
+
+      <script src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
         <script src="https://www.gstatic.com/firebasejs/4.3.0/firebase.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+        <script src="https://momentjs.com/downloads/moment.min.js" ></script>
+        <script src="https://unpkg.com/vue@2.5.3/dist/vue.js"></script>
         <script src="/javascripts/translate.js"></script>
         <script src="/javascripts/userScript.js"></script>
         <script src="/javascripts/chat.js"></script>
