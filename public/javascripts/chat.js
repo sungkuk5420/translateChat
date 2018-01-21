@@ -2,6 +2,7 @@
 var chat = undefined;
 var CHATDATABASE = undefined;
 var app;
+defaultPath = '/translate';
 $(document).ready(function(){
    //$('.messages').css('height',$('.chat_window')[0].offsetHeight-($('.bottom_wrapper')[0].offsetHeight+$('.top_menu')[0].offsetHeight)+'px');
     var Message;
@@ -102,11 +103,7 @@ $(document).ready(function(){
         thisChatList : undefined,
         userName : undefined,
         init : function(){
-
-            chat.userName = 'abc';
-
             chat.getDatabase(function(){
-
                 CHATDATABASE.ref(chat.defaultChat).limitToLast(1).on('child_added', function(data) {
                     var addData = data.val();
 
@@ -156,7 +153,6 @@ $(document).ready(function(){
                     }
 
                 });
-
                 chat.thisChatList.forEach(function(itemData,index){
                     var addData = itemData.data;
                     var textData = DBData.filter(function(item){
@@ -204,27 +200,32 @@ $(document).ready(function(){
                         });
                     }
                 });
-
-
             });
         },
         getDatabase : function(cb){
             CHATDATABASE = firebase.database();
-            CHATDATABASE.ref(chat.defaultChat).on('value', function (data) {
-                var database = data.val();
-                chat.thisChatList = Object.keys(database).map(function (data) {
-                    return {
-                        id: data,
-                        data: database[data]
-                    };
+            var _promise = function (param) {
+                return new Promise(function (resolve, reject) {
+                    CHATDATABASE.ref(chat.defaultChat).on('value', function (data) {
+                        var database = data.val();
+                        chat.thisChatList = Object.keys(database).map(function (data) {
+                            return {
+                                id: data,
+                                data: database[data]
+                            };
+                        });
+                        resolve();
+                    });
                 });
-            });
-            setTimeout(function(){
-                if (cb) {
-                    cb();
-                }
-            },0);
-
+            };
+            _promise(true)
+                .then(function () {
+                    if (cb) {
+                        cb();
+                    }
+                }, function (error) {
+                    console.error(error);
+                });
         },
         pushData : function(userName,sendText){
             CHATDATABASE.ref(chat.defaultChat).child('/').push({
@@ -243,9 +244,16 @@ $(document).ready(function(){
 
     app = new Vue({
         el: '#chatbox',
-        data: {
-            messages : [
-            ]
+        data: function data() {
+            return {
+                items: [{ title: 'Click Me' },
+                    { title: 'Click Me' },
+                    { title: 'Click Me' },
+                    { title: 'Click Me 2' }
+                ],
+                messages : [
+                ]
+            }
         },
         methods: {
             addItem: function (data) {
@@ -262,6 +270,19 @@ $(document).ready(function(){
         }
     });
 
+
+
+    // new Vue({
+    //     el: '#menuIcon',
+    //     data: function data() {
+    //         return {
+    //             items: [{ title: 'Click Me' },
+    //                 { title: 'Click Me' },
+    //                 { title: 'Click Me' },
+    //                 { title: 'Click Me 2' }]
+    //         };
+    //     }
+    // });
 
     var preloadbg = document.createElement("img");
     preloadbg.src = "https://s3-us-west-2.amazonaws.com/s.cdpn.io/245657/timeline1.png";
@@ -293,6 +314,7 @@ $(document).ready(function(){
 
     $(".friend").each(function(){
         $(this).click(function(){
+            chat.userName = 'aa';
             var childOffset = $(this).offset();
             var parentOffset = $(this).parent().parent().offset();
             var childTop = childOffset.top - parentOffset.top;
