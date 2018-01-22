@@ -8,3 +8,18 @@
   padding: 1rem;
   font-weight: bold;
   text-align: center; }
+
+.tabs {
+  height: 100%; }
+  .tabs .tabs__items {
+    height: 100%;
+    padding-bottom: 130px; }
+    .tabs .tabs__items .tabs__content {
+      height: 100%; }
+  .tabs .tabs__wrapper,
+  .tabs .tabs__container {
+    overflow: hidden; }
+  .tabs .tabs__wrapper .tabs__container .tabs__li {
+    width: 50%;
+    flex: none;
+    max-width: none; }
