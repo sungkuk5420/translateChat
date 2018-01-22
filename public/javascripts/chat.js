@@ -241,7 +241,10 @@ $(document).ready(function(){
 
 
     chat.init();
-
+    Vue.component('msg-bubble', {
+        props: ['id','class','send-text','time-stamp'],
+        template: '<div class="message"  ><img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/245657/1_copy.jpg" /><div class="bubble">{{sendText}}<div class="translateDiv"></div><div class="corner"></div><span>{{timeStamp}}</span></div></div>'
+    });
     app = new Vue({
         el: '#chatbox',
         data: function data() {
@@ -252,6 +255,7 @@ $(document).ready(function(){
                     { title: 'Click Me 2' }
                 ],
                 messages : [
+
                 ]
             }
         },

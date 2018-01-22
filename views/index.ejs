@@ -124,21 +124,9 @@
               </div>
               <div id="chat-messages">
                   <label>Thursday 02</label>
-
-                  <div class="message" v-bind:id="thisMsg.id" v-bind:class="thisMsg.msgType== 'my' ? 'right' : '' " v-for="thisMsg in messages">
-                      <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/245657/1_copy.jpg" />
-                      <div class="bubble">
-                          {{thisMsg.sendText}}
-                          <div class="translateDiv">
-                              {{thisMsg.translateText}}
-                          </div>
-                          <div class="corner"></div>
-                          <span>{{thisMsg.timeStamp}}</span>
-                      </div>
-                  </div>
-
-
-
+                  <msg-bubble v-for="thisMsg in messages" v-bind:send-text="thisMsg.sendText" v-bind:id="thisMsg.id"
+                              v-bind:class="thisMsg.msgType== 'my' ? 'right' : '' " v-bind:time-stamp="thisMsg.timeStamp">
+                  </msg-bubble>
               </div>
 
               <div id="sendmessage">
