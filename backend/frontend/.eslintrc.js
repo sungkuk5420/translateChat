@@ -20,7 +20,11 @@ module.exports = {
     'cordova': true,
     'DEV': true,
     'PROD': true,
-    '__THEME': true
+    '__THEME': true,
+    'translateInit': true,
+    'DBData': true,
+    defaultPath: true,
+    getDataBase: true
   },
   // add your custom rules here
   'rules': {
