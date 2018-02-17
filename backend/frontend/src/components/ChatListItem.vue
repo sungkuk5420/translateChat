@@ -28,6 +28,7 @@ export default {
   },
   methods: {
     goChatRoom () {
+      this.$store.dispatch(M.CHANGE_CHAT, this.name)
       this.$store.dispatch(M.GO_OTHER_PAGE, 'chatRoom')
     }
   }

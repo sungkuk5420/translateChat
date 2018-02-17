@@ -4,7 +4,9 @@ import { M } from './types'
 import router from 'router'
 
 const state = {
-
+  userInfo: {
+    name: 'abc'
+  },
   chatList: [
   ],
   chatMessages: [
@@ -16,9 +18,6 @@ const state = {
       id: 2,
       name: 'Vladimir',
       text: ['How are you?'],
-      sent: false,
-      textColor: 'black',
-      bgColor: '',
       avatar: 'http://quasar-framework.org/quasar-play/android/img/boy-avatar.5ff53af.png',
       stamp: 'Yesterday 13:34'
     },
@@ -170,11 +169,25 @@ const state = {
       avatar: 'http://quasar-framework.org/quasar-play/android/img/boy-avatar.5ff53af.png',
       stamp: '13:55'
     }
-  ]
+  ],
+  chatSetting: {
+    chatId: '',
+    yourBubble: {
+      textColor: 'black',
+      bgColor: ''
+    },
+    myBubble: {
+      textColor: 'black',
+      bgColor: ''
+    }
+  }
 
 }
 
 const getters = {
+  getUserInfo () {
+    return state.userInfo
+  },
   getChatList () {
     return state.chatList
   },
@@ -186,24 +199,51 @@ const getters = {
 const actions = {
   [M.GO_OTHER_PAGE] ({ commit }, pathStr) {
     commit(M.GO_OTHER_PAGE, pathStr)
+  },
   [M.CAHNGE_CHAT_LIST] ({ commit }) {
     defaultPath = '/chatList'
-    // let thisObj = this
     translateInit(function () {
       console.log(DBData)
       let chatList = DBData
       commit(M.CAHNGE_CHAT_LIST, chatList)
     })
   },
+  [M.CHANGE_CHAT] ({ commit }, chatId) {
+    commit(M.CHANGE_CHAT, chatId)
+  },
+  [M.ADD_BUBBLE_LIST] ({ commit }) {
+    defaultPath = '/chatMessages'
+    getDataBase('cbTrue').then(function (chatMessagesData) {
+      commit(M.ADD_BUBBLE_LIST, chatMessagesData)
+    },
+    function (error) {
+      console.error(error)
+    })
   }
 }
 
 const mutations = {
   [M.GO_OTHER_PAGE] (state, pathStr) {
-    router.push({ path: `/${pathStr}` })
+    if (pathStr === 'chatRoom') {
+      router.push({ path: `/${pathStr}`, query: { chatId: state.chatSetting.chatId } })
+    }
+    else {
+      router.push({path: `/${pathStr}`})
+    }
   },
   [M.CAHNGE_CHAT_LIST] (state, chatList) {
     state.chatList = chatList
+  },
+  [M.CHANGE_CHAT] (state, chatId) {
+    state.chatSetting.chatId = chatId
+  },
+  [M.ADD_BUBBLE_LIST] (state, chatMessagesData) {
+    console.log('aa')
+    let chatMessages = chatMessagesData.filter((crruentChat) => {
+      return crruentChat.id === state.chatSetting.chatId
+    })
+
+    state.chatMessages = chatMessages[0].data
   }
 }
 
