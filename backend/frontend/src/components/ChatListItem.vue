@@ -1,7 +1,7 @@
 <template>
   <q-item @click="goChatRoom">
     <q-item-side avatar="http://quasar-framework.org/quasar-play/android/img/boy-avatar.5ff53af.png" />
-    <q-item-main label="공개 채팅방" />
+    <q-item-main v-bind:label="name"  />
     <q-item-side right icon="chat_bubble" />
   </q-item>
 </template>
@@ -14,6 +14,10 @@ import {
   QItemMain
 } from 'quasar'
 export default {
+  props: [
+    'name',
+    'id'
+  ],
   components: {
     QItem,
     QItemSide,

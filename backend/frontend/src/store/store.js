@@ -5,6 +5,8 @@ import router from 'router'
 
 const state = {
 
+  chatList: [
+  ],
   chatMessages: [
     {
       id: 1,
@@ -173,6 +175,9 @@ const state = {
 }
 
 const getters = {
+  getChatList () {
+    return state.chatList
+  },
   getChatMessages () {
     return state.chatMessages
   }
@@ -181,14 +186,25 @@ const getters = {
 const actions = {
   [M.GO_OTHER_PAGE] ({ commit }, pathStr) {
     commit(M.GO_OTHER_PAGE, pathStr)
+  [M.CAHNGE_CHAT_LIST] ({ commit }) {
+    defaultPath = '/chatList'
+    // let thisObj = this
+    translateInit(function () {
+      console.log(DBData)
+      let chatList = DBData
+      commit(M.CAHNGE_CHAT_LIST, chatList)
+    })
+  },
   }
 }
 
 const mutations = {
   [M.GO_OTHER_PAGE] (state, pathStr) {
     router.push({ path: `/${pathStr}` })
+  },
+  [M.CAHNGE_CHAT_LIST] (state, chatList) {
+    state.chatList = chatList
   }
-
 }
 
 export default {
