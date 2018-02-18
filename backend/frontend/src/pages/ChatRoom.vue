@@ -26,7 +26,7 @@
       </q-chat-message>
     </div>
     <q-toolbar slot="footer" class="fixed-bottom no-margin no-padding">
-        <q-input :loading="loading" class="no-margin full-width" inverted color="secondary" v-model="text" stack-label="send message" />
+        <q-input class="no-margin full-width" inverted v-model="text" stack-label="send message" :after="[{icon: 'arrow_forward', content: true, handler () {}}]"/>
     </q-toolbar>
   </q-layout>
 </template>
@@ -61,7 +61,7 @@ export default {
     QInput
   },
   data () {
-    return {loading: true}
+    return {loading: true, text: ''}
   },
   computed: {
     ...mapGetters({
