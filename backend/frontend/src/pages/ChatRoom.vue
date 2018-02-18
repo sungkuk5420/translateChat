@@ -34,8 +34,8 @@
 import { M } from '../store/types'
 import { mapGetters } from 'vuex'
 import backBtnToolbar from '../components/BackBtnToolbar'
+import qChatMessage from '../components/chatMessage'
 import {
-  QChatMessage,
   QSpinnerDots,
   QToolbar,
   QToolbarTitle,
@@ -47,7 +47,6 @@ import {
 
 export default {
   components: {
-    QChatMessage,
     QSpinnerDots,
     QToolbar,
     QToolbarTitle,
@@ -55,7 +54,8 @@ export default {
     QIcon,
     QLayout,
     QFixedPosition,
-    backBtnToolbar
+    backBtnToolbar,
+    qChatMessage
   },
   data () {
     return {}

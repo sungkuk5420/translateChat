@@ -24,7 +24,8 @@ module.exports = {
     'translateInit': true,
     'DBData': true,
     defaultPath: true,
-    getDataBase: true
+    getDataBase: true,
+    textTranslate: true
   },
   // add your custom rules here
   'rules': {
