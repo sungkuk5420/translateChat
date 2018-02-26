@@ -1,6 +1,6 @@
 <template>
   <q-item @click="goChatRoom">
-    <q-item-side avatar="http://quasar-framework.org/quasar-play/android/img/boy-avatar.5ff53af.png" />
+    <q-item-side avatar="http://quasar-framework.org/quasar-play/apple/statics/boy-avatar.png" />
     <q-item-main v-bind:label="name"  />
     <q-item-side right icon="chat_bubble" />
   </q-item>

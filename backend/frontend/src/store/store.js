@@ -18,7 +18,7 @@ const state = {
     //   id: 2,
     //   name: 'Vladimir',
     //   text: ['How are you?'],
-    //   avatar: 'http://quasar-framework.org/quasar-play/android/img/boy-avatar.5ff53af.png',
+    //   avatar: 'http://quasar-framework.org/quasar-play/apple/statics/boy-avatar.png',
     //   stamp: 'Yesterday 13:34'
     // },
     // {
@@ -49,7 +49,7 @@ const state = {
     //   bgColor: 'amber',
     //   textColor: 'white',
     //   text: ['Fine. Nice weather today, right?', 'Hmm...'],
-    //   avatar: 'http://quasar-framework.org/quasar-play/android/img/boy-avatar.5ff53af.png',
+    //   avatar: 'http://quasar-framework.org/quasar-play/apple/statics/boy-avatar.png',
     //   stamp: '13:55'
     // },
     // {
@@ -60,7 +60,7 @@ const state = {
     //   id: 8,
     //   name: 'Vladimir',
     //   text: ['How are you?'],
-    //   avatar: 'http://quasar-framework.org/quasar-play/android/img/boy-avatar.5ff53af.png',
+    //   avatar: 'http://quasar-framework.org/quasar-play/apple/statics/boy-avatar.png',
     //   stamp: 'Yesterday 13:34'
     // },
     // {
@@ -87,7 +87,7 @@ const state = {
     //   id: 12,
     //   name: 'Vladimir',
     //   text: ['Fine. Nice weather today, right?', 'Hmm...'],
-    //   avatar: 'http://quasar-framework.org/quasar-play/android/img/boy-avatar.5ff53af.png',
+    //   avatar: 'http://quasar-framework.org/quasar-play/apple/statics/boy-avatar.png',
     //   stamp: '13:55'
     // },
     // {
@@ -98,7 +98,7 @@ const state = {
     //   id: 14,
     //   name: 'Vladimir',
     //   text: ['How are you?'],
-    //   avatar: 'http://quasar-framework.org/quasar-play/android/img/boy-avatar.5ff53af.png',
+    //   avatar: 'http://quasar-framework.org/quasar-play/apple/statics/boy-avatar.png',
     //   stamp: 'Yesterday 13:34'
     // },
     // {
@@ -125,7 +125,7 @@ const state = {
     //   id: 18,
     //   name: 'Vladimir',
     //   text: ['Fine. Nice weather today, right?', 'Hmm...'],
-    //   avatar: 'http://quasar-framework.org/quasar-play/android/img/boy-avatar.5ff53af.png',
+    //   avatar: 'http://quasar-framework.org/quasar-play/apple/statics/boy-avatar.png',
     //   stamp: '13:55'
     // },
     // {
@@ -136,7 +136,7 @@ const state = {
     //   id: 20,
     //   name: 'Vladimir',
     //   text: ['How are you?'],
-    //   avatar: 'http://quasar-framework.org/quasar-play/android/img/boy-avatar.5ff53af.png',
+    //   avatar: 'http://quasar-framework.org/quasar-play/apple/statics/boy-avatar.png',
     //   stamp: 'Yesterday 13:34'
     // },
     // {
@@ -163,7 +163,7 @@ const state = {
     //   id: 24,
     //   name: 'Vladimir',
     //   text: ['Fine. Nice weather today, right?', 'Hmm...'],
-    //   avatar: 'http://quasar-framework.org/quasar-play/android/img/boy-avatar.5ff53af.png',
+    //   avatar: 'http://quasar-framework.org/quasar-play/apple/statics/boy-avatar.png',
     //   stamp: '13:55'
     // }
   ],
@@ -216,6 +216,9 @@ const actions = {
     function (error) {
       console.error(error)
     })
+  },
+  [M.SEND_CHAT] ({ commit }) {
+    commit(M.SEND_CHAT)
   }
 }
 
@@ -240,7 +243,20 @@ const mutations = {
       return crruentChat.id === state.chatSetting.chatId
     })
 
-    state.chatMessages = chatMessages[0].data
+    console.log(chatMessages[0].data.size)
+    for (var currentChatMessage in chatMessages[0].data) {
+      state.chatMessages.push(chatMessages[0].data[currentChatMessage])
+    }
+  },
+
+  [M.SEND_CHAT] (state) {
+    let message = {
+      name: 'abc',
+      text: ['Fine. Nice weather today, right?', 'Hmm...'],
+      userImage: 'http://quasar-framework.org/quasar-play/apple/statics/boy-avatar.png',
+      timeStamp: 'Yesterday 13'
+    }
+    state.chatMessages.push(message)
   }
 }
 
