@@ -1,31 +1,34 @@
 <template>
-  <q-layout style="height: 100%;">
+  <q-layout style="height: 100%;" >
     <!-- your content -->
-    <q-toolbar slot="header" class="fixed-top no-padding">
+    <q-toolbar slot="header" class="no-padding">
       <back-btn-toolbar></back-btn-toolbar>
     </q-toolbar>
-    <q-scroll-area class="layout-padding" style="margin-top: 50px; padding-top:0px; padding-bottom: 100px; height: 100%;" v-chat-scroll >
-      <q-chat-message
-        v-for="msg in chatMessages"
-        :key="msg.key"
-        :label="msg.label"
-        :sent="(msg.name === userInfo.name) ? true : false"
-        :text-color="'black'"
-        :bg-color="''"
-        :name="msg.name"
-        :avatar="(msg.name === userInfo.name) ? 'http://quasar-framework.org/quasar-play/apple/statics/boy-avatar.png' : 'http://quasar-framework.org/quasar-play/android/statics/linux-avatar.png'"
-        :text="msg.text"
-        :stamp="msg.stamp"
-      />
+    <div v-chat-scroll>
+      <q-scroll-area class="layout-padding" style="margin-top: 00px; padding-top:0px; padding-bottom:0px; "  >
+        <q-chat-message
+          v-for="msg in chatMessages"
+          :key="msg.key"
+          :label="msg.label"
+          :sent="(msg.name === userInfo.name) ? true : false"
+          :text-color="'black'"
+          :bg-color="''"
+          :name="msg.name"
+          :avatar="(msg.name === userInfo.name) ? 'http://quasar-framework.org/quasar-play/apple/statics/boy-avatar.png' : 'http://quasar-framework.org/quasar-play/android/statics/linux-avatar.png'"
+          :text="msg.text"
+          :stamp="msg.stamp"
+        />
 
-      <!-- <q-chat-message
-        name="Vladimir"
-        avatar="http://quasar-framework.org/quasar-play/apple/statics/boy-avatar.png"
-      >
-        <q-spinner-dots size="2rem" />
-      </q-chat-message> -->
-    </q-scroll-area>
-    <q-toolbar slot="footer" class="fixed-bottom no-margin no-padding">
+        <!-- <q-chat-message
+          name="Vladimir"
+          avatar="http://quasar-framework.org/quasar-play/apple/statics/boy-avatar.png"
+        >
+          <q-spinner-dots size="2rem" />
+        </q-chat-message> -->
+      </q-scroll-area>
+    </div>
+
+    <q-toolbar slot="footer" class=" no-margin no-padding">
         <q-input class="no-margin full-width" autofocus inverted v-model="sendMsg" stack-label="send message" :after="[{icon: 'arrow_forward', content: true, handler () {chatSend()}  }]" @keydown.enter="chatSend" />
     </q-toolbar>
   </q-layout>
@@ -97,13 +100,48 @@ export default {
 }
 </script>
 <style>
+/* relevant styles */
+.layout {
+    position: absolute;
+    width: 100%;
+
+    display: -moz-flex;
+    -moz-flex-direction: column;
+    -moz-flex-wrap: nowrap;
+
+    display: -webkit-flex;
+    -webkit-flex-direction: column;
+    -webkit-flex-wrap: nowrap;
+
+    display: -ms-flex;
+    -ms-flex-direction: column;
+    -ms-flex-wrap: nowrap;
+
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+}
+
+header {
+    -moz-flex-shrink: 0;
+    -webkit-flex-shrink: 0;
+    -ms-flex-shrink: 0;
+    flex-shrink: 0;
+}
 .layout-page-container{
-  height:100%;
+    -moz-flex-grow: 1;
+    -webkit-flex-grow: 1;
+    -ms-flex-grow: 1;
+    flex-grow: 1;
+    overflow: auto;
 }
-.layout-page {
-  height:100%;
-  min-height: initial !important;
+footer{
+    -moz-flex-shrink: 0;
+    -webkit-flex-shrink: 0;
+    -ms-flex-shrink: 0;
+    flex-shrink: 0;
 }
+
 .q-message-avatar {
   display: block;
 }
