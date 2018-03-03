@@ -6,7 +6,7 @@
         <back-btn-toolbar></back-btn-toolbar>
       </q-toolbar>
     </q-layout-header>
-    <q-page-container style="padding-top: 50px;" v-chat-scroll>
+    <q-page-container class="scroll overflow-hidde" style="padding-top: 50px;" v-chat-scroll>
       <q-chat-message
         v-for="msg in chatMessages"
         :key="msg.key"
@@ -112,7 +112,6 @@ q-layout-footer{
 q-page-container{
   padding-top: 50px;
   position: absolute;
-  overflow: auto;
   width: 100%;
   height: 100%;
   padding-bottom: 50px;
