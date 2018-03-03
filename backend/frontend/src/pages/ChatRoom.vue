@@ -1,10 +1,10 @@
 <template>
-  <q-layout style="padding-top: 50px;">
+  <q-layout style="padding-top: 50px; padding-bottom: 50px; height: 100%;">
     <!-- your content -->
     <q-toolbar slot="header" class="fixed-top no-padding">
       <back-btn-toolbar></back-btn-toolbar>
     </q-toolbar>
-    <q-infinite-scroll :handler="refresher" class="layout-padding" style="padding-top: 0px; padding-bottom: 60px;" ref="list">
+    <div class="layout-padding" style="padding-top: 0px;padding-bottom: 0px;overflow-y: scroll;height: 100%;" ref="list">
       <q-chat-message
         v-for="msg in chatMessages"
         :key="msg.key"
@@ -24,7 +24,7 @@
       >
         <q-spinner-dots size="2rem" />
       </q-chat-message> -->
-    </q-infinite-scroll>
+    </div>
     <q-toolbar slot="footer" class="fixed-bottom no-margin no-padding">
         <q-input class="no-margin full-width" autofocus inverted v-model="sendMsg" stack-label="send message" :after="[{icon: 'arrow_forward', content: true, handler () {chatSend}  }]" @keydown.enter="chatSend" />
     </q-toolbar>
@@ -81,7 +81,9 @@ export default {
     this.$store.dispatch(M.ADD_BUBBLE_LIST)
   },
   updated () {
-    window.scrollTo(0, document.body.scrollHeight)
+    console.log('aa')
+    console.log(this.$refs.list.scrollHeight)
+    this.$refs.list.scrollTo(0, this.$refs.list.scrollHeight)
   },
   methods: {
     chatSend () {
@@ -103,6 +105,13 @@ export default {
 }
 </script>
 <style>
+.layout-page-container{
+  height:100%;
+}
+.layout-page {
+  height:100%;
+  min-height: initial !important;
+}
 .q-message-avatar {
   display: block;
 }
