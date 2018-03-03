@@ -98,9 +98,24 @@ export default {
 <style>
 q-layout-header{
   z-index: 1;
+  position: absolute;
+  height: 50px;
+  top: 0;
+}
+q-layout-footer{
+  position: absolute;
+  bottom: 0;
 }
 .layout-page-container {
-  padding: 50px 0px 50px 0px;
+  height:100%;
+}
+q-page-container{
+  padding-top: 50px;
+  position: absolute;
+  overflow: auto;
+  width: 100%;
+  height: 100%;
+  padding-bottom: 50px;
 }
 .q-message-avatar {
   display: block;
