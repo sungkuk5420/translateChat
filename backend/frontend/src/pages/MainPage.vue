@@ -4,7 +4,6 @@
     ref="layout"
     view="lHh Lpr fff"
     :left-class="{'bg-grey-2': true}"
-    class="full-height"
   >
     <q-tabs>
       <!-- Tabs - notice slot="title" -->
