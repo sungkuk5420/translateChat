@@ -1,10 +1,10 @@
 <template>
-  <q-layout style="padding-top: 50px;  height: 100%;">
+  <q-layout style="height: 100%;">
     <!-- your content -->
     <q-toolbar slot="header" class="fixed-top no-padding">
       <back-btn-toolbar></back-btn-toolbar>
     </q-toolbar>
-    <q-scroll-area class="layout-padding" style="padding-top: 0px;padding-bottom: 50px;height: 100%;" v-chat-scroll >
+    <q-scroll-area class="layout-padding" style="margin-top: 50px; padding-top:0px; padding-bottom: 100px; height: 100%;" v-chat-scroll >
       <q-chat-message
         v-for="msg in chatMessages"
         :key="msg.key"
