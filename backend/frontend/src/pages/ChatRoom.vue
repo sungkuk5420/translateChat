@@ -26,7 +26,7 @@
       </q-chat-message> -->
     </div>
     <q-toolbar slot="footer" class="fixed-bottom no-margin no-padding">
-        <q-input class="no-margin full-width" autofocus inverted v-model="sendMsg" stack-label="send message" :after="[{icon: 'arrow_forward', content: true, handler () {chatSend}  }]" @keydown.enter="chatSend" />
+        <q-input class="no-margin full-width" autofocus inverted v-model="sendMsg" stack-label="send message" :after="[{icon: 'arrow_forward', content: true, handler () {chatSend()}  }]" @keydown.enter="chatSend" />
     </q-toolbar>
   </q-layout>
 </template>
