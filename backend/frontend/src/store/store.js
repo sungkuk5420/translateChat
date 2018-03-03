@@ -217,8 +217,8 @@ const actions = {
       console.error(error)
     })
   },
-  [M.SEND_CHAT] ({ commit }) {
-    commit(M.SEND_CHAT)
+  [M.SEND_CHAT] ({ commit }, sendMsg) {
+    commit(M.SEND_CHAT, sendMsg)
   }
 }
 
@@ -248,11 +248,10 @@ const mutations = {
       state.chatMessages.push(chatMessages[0].data[currentChatMessage])
     }
   },
-
-  [M.SEND_CHAT] (state) {
+  [M.SEND_CHAT] (state, sendMsg) {
     let message = {
       name: 'abc',
-      text: ['Fine. Nice weather today, right?', 'Hmm...'],
+      text: [sendMsg],
       userImage: 'http://quasar-framework.org/quasar-play/apple/statics/boy-avatar.png',
       timeStamp: 'Yesterday 13'
     }

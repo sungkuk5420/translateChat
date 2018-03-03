@@ -18,15 +18,15 @@
         :stamp="msg.stamp"
       />
 
-      <q-chat-message
+      <!-- <q-chat-message
         name="Vladimir"
         avatar="http://quasar-framework.org/quasar-play/apple/statics/boy-avatar.png"
       >
         <q-spinner-dots size="2rem" />
-      </q-chat-message>
+      </q-chat-message> -->
     </q-infinite-scroll>
     <q-toolbar slot="footer" class="fixed-bottom no-margin no-padding">
-        <q-input class="no-margin full-width" inverted v-model="text" stack-label="send message" :after="[{icon: 'arrow_forward', content: true, handler () {chatSend()}  }]"/>
+        <q-input class="no-margin full-width" autofocus inverted v-model="sendMsg" stack-label="send message" :after="[{icon: 'arrow_forward', content: true, handler () {chatSend}  }]" @keydown.enter="chatSend" />
     </q-toolbar>
   </q-layout>
 </template>
@@ -65,7 +65,10 @@ export default {
     QInfiniteScroll
   },
   data () {
-    return {loading: true, text: ''}
+    return {
+      loading: true,
+      sendMsg: ''
+    }
   },
   computed: {
     ...mapGetters({
@@ -82,7 +85,9 @@ export default {
   },
   methods: {
     chatSend () {
-      this.$store.dispatch(M.SEND_CHAT)
+      let sendMsg = this.sendMsg
+      this.sendMsg = ''
+      this.$store.dispatch(M.SEND_CHAT, sendMsg)
     },
     refresher (index, done) {
       setTimeout(() => {
