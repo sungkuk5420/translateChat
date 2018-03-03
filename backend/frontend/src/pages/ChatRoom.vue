@@ -4,7 +4,7 @@
     <q-toolbar slot="header" class="fixed-top no-padding">
       <back-btn-toolbar></back-btn-toolbar>
     </q-toolbar>
-    <div class="layout-padding" style="padding-top: 0px;padding-bottom: 0px;overflow-y: scroll;height: 100%;" ref="list">
+    <q-scroll-area class="layout-padding" style="padding-top: 0px;padding-bottom: 0px;height: 100%;" v-chat-scroll >
       <q-chat-message
         v-for="msg in chatMessages"
         :key="msg.key"
@@ -24,7 +24,7 @@
       >
         <q-spinner-dots size="2rem" />
       </q-chat-message> -->
-    </div>
+    </q-scroll-area>
     <q-toolbar slot="footer" class="fixed-bottom no-margin no-padding">
         <q-input class="no-margin full-width" autofocus inverted v-model="sendMsg" stack-label="send message" :after="[{icon: 'arrow_forward', content: true, handler () {chatSend()}  }]" @keydown.enter="chatSend" />
     </q-toolbar>
@@ -45,8 +45,7 @@ import {
   QLayout,
   QFixedPosition,
   QInput,
-  scroll,
-  QInfiniteScroll
+  QScrollArea
 } from 'quasar'
 
 export default {
@@ -61,8 +60,7 @@ export default {
     backBtnToolbar,
     qChatMessage,
     QInput,
-    scroll,
-    QInfiniteScroll
+    QScrollArea
   },
   data () {
     return {
@@ -80,26 +78,20 @@ export default {
     this.$store.dispatch(M.CHANGE_CHAT, this.$route.query.chatId)
     this.$store.dispatch(M.ADD_BUBBLE_LIST)
   },
-  updated () {
-    console.log('aa')
-    console.log(this.$refs.list.scrollHeight)
-    this.$refs.list.scrollTo(0, this.$refs.list.scrollHeight)
-  },
   methods: {
     chatSend () {
       let sendMsg = this.sendMsg
       this.sendMsg = ''
       this.$store.dispatch(M.SEND_CHAT, sendMsg)
     },
-    refresher (index, done) {
-      setTimeout(() => {
-        // let items = []
-        // for (let i = 0; i < 7; i++) {
-        //   items.push({})
-        // }
-        // this.items = this.items.concat(items)
-        done()
-      }, 2500)
+    userHasScrolled (scroll) {
+      console.log(scroll)
+      // {
+      //   position: 56, // pixels from top
+      //   direction: 'down', // 'down' or 'up'
+      //   directionChanged: false, // has direction changed since this handler was called?
+      //   inflexionPosition: 56 // last scroll position where user changed scroll direction
+      // }
     }
   }
 }
