@@ -110,11 +110,10 @@ q-layout-footer{
   height:100%;
 }
 q-page-container{
-  padding-top: 50px;
   position: absolute;
   width: 100%;
   height: 100%;
-  padding-bottom: 50px;
+  padding: 50px 10px 50px 10px;
 }
 .q-message-avatar {
   display: block;
