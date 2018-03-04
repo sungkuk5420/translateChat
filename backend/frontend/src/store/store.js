@@ -5,7 +5,7 @@ import router from 'router'
 
 const state = {
   userInfo: {
-    name: 'abc'
+    name: 'abcd'
   },
   chatList: [
   ],
@@ -177,7 +177,8 @@ const state = {
       textColor: 'black',
       bgColor: ''
     }
-  }
+  },
+  CHATDATABASE: ''
 
 }
 
@@ -235,15 +236,18 @@ const mutations = {
     state.chatList = chatList
   },
   [M.CHANGE_CHAT] (state, chatId) {
+    state.CHATDATABASE = firebase.database()
     state.chatSetting.chatId = chatId
+    console.log('/chatMessages/' + state.chatSetting.chatId)
+    state.CHATDATABASE.ref('/chatMessages/' + state.chatSetting.chatId).limitToLast(1).on('child_added', function (data) {
+      let addmessage = data.val()
+      state.chatMessages.push(addmessage)
+    })
   },
   [M.ADD_BUBBLE_LIST] (state, chatMessagesData) {
-    console.log('aa')
     let chatMessages = chatMessagesData.filter((crruentChat) => {
       return crruentChat.id === state.chatSetting.chatId
     })
-
-    console.log(chatMessages[0].data.size)
     for (var currentChatMessage in chatMessages[0].data) {
       state.chatMessages.push(chatMessages[0].data[currentChatMessage])
     }
@@ -255,7 +259,8 @@ const mutations = {
       userImage: 'http://quasar-framework.org/quasar-play/apple/statics/boy-avatar.png',
       timeStamp: 'Yesterday 13'
     }
-    state.chatMessages.push(message)
+    state.CHATDATABASE.ref(defaultPath).child('/' + state.chatSetting.chatId).push(message)
+    // state.chatMessages.push(message)
   }
 }
 

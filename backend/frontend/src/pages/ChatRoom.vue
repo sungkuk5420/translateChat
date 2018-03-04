@@ -1,12 +1,10 @@
 <template>
   <q-layout :view="'hHh Lpr lFf'">
     <!-- your content -->
-    <q-layout-header v-model="header" :reveal="false" class="fixed-top">
-      <q-toolbar slot="header" class=" no-padding">
-        <back-btn-toolbar></back-btn-toolbar>
-      </q-toolbar>
-    </q-layout-header>
-    <q-page-container class="scroll overflow-hidde" style="padding-top: 50px;" v-chat-scroll>
+    <q-toolbar v-model="header" :reveal="false" slot="header" class="fixed-top no-padding">
+      <back-btn-toolbar></back-btn-toolbar>
+    </q-toolbar>
+    <q-page-container class="scroll overflow-hidde"  style="padding-top: 50px;" v-chat-scroll>
       <q-chat-message
         v-for="msg in chatMessages"
         :key="msg.key"
@@ -20,11 +18,9 @@
         :stamp="msg.stamp"
       />
     </q-page-container>
-    <q-layout-footer v-model="footer" :reveal="false" class="fixed-bottom">
-      <q-toolbar slot="footer" class="no-margin no-padding">
-          <q-input class="no-margin full-width" autofocus inverted v-model="sendMsg" stack-label="send message" :after="[{icon: 'arrow_forward', content: true, handler () {chatSend()}  }]" @keydown.enter="chatSend" />
-      </q-toolbar>
-    </q-layout-footer>
+    <q-toolbar v-model="footer" :reveal="false" slot="footer" class="no-margin no-padding fixed-bottom">
+        <q-input class="no-margin full-width" autofocus inverted v-model="sendMsg" stack-label="send message" :after="[{icon: 'arrow_forward', content: true, handler () {chatSend()}  }]" @keydown.enter="chatSend" />
+    </q-toolbar>
   </q-layout>
 </template>
 
@@ -82,15 +78,6 @@ export default {
       let sendMsg = this.sendMsg
       this.sendMsg = ''
       this.$store.dispatch(M.SEND_CHAT, sendMsg)
-    },
-    userHasScrolled (scroll) {
-      console.log(scroll)
-      // {
-      //   position: 56, // pixels from top
-      //   direction: 'down', // 'down' or 'up'
-      //   directionChanged: false, // has direction changed since this handler was called?
-      //   inflexionPosition: 56 // last scroll position where user changed scroll direction
-      // }
     }
   }
 }

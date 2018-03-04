@@ -25,7 +25,8 @@ module.exports = {
     'DBData': true,
     defaultPath: true,
     getDataBase: true,
-    textTranslate: true
+    textTranslate: true,
+    firebase: true
   },
   // add your custom rules here
   'rules': {
