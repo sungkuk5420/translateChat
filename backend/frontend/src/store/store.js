@@ -229,6 +229,7 @@ const mutations = {
       router.push({ path: `/${pathStr}`, query: { chatId: state.chatSetting.chatId } })
     }
     else {
+      state.CHATDATABASE.ref('/chatMessages/' + state.chatSetting.chatId).limitToLast(1).off('child_added')
       router.push({path: `/${pathStr}`})
     }
   },
