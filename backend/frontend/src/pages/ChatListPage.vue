@@ -53,13 +53,13 @@ export default {
   },
   methods: {
     createChat () {
+      let thisObj = this
       Dialog.create({
         title: 'Prompt',
         form: {
-          name: {
+          chatName: {
             type: 'text',
-            label: 'Textbox',
-            model: ''
+            label: 'Textbox'
           },
           pass: {
             type: 'password',
@@ -95,6 +95,7 @@ export default {
               // data.age is 1
               // data.tags is ['Joe', 'John'],
               // data.comments is 'Some comments...'
+              thisObj.$store.dispatch(M.CREATE_CHAT, data.chatName)
             }
           }
         ]

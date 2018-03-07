@@ -5,7 +5,7 @@ import router from 'router'
 
 const state = {
   userInfo: {
-    name: '',
+    name: 'abc',
     image: ''
   },
   chatList: [
@@ -231,6 +231,9 @@ const actions = {
   },
   [M.CHANGE_SEND_MSG] ({ commit }, sendMsg) {
     commit(M.CHANGE_SEND_MSG, sendMsg)
+  },
+  [M.CREATE_CHAT] ({ commit }, chatName) {
+    commit(M.CREATE_CHAT, chatName)
   }
 }
 
@@ -239,25 +242,41 @@ const mutations = {
     state.chatSetting.chatId = chatId
   },
   [M.GO_OTHER_PAGE] (state, pathStr) {
+    state.CHATDATABASE.ref('/chatList').limitToLast(1).off('child_added')
     if (pathStr === 'chatRoom') {
       console.log(state.chatSetting.chatId)
       router.push({ path: `/${pathStr}`, query: { chatId: state.chatSetting.chatId } })
     }
     else {
       state.CHATDATABASE.ref('/chatMessages/' + state.chatSetting.chatId).limitToLast(1).off('child_added')
+      state.chatMessages = []
       router.push({path: `/${pathStr}`})
     }
   },
   [M.CAHNGE_CHAT_LIST] (state, chatList) {
+    state.CHATDATABASE = firebase.database()
+    state.CHATDATABASE.ref('/chatList').limitToLast(1).on('child_added', function (data) {
+      let chat = {
+        'id': data.key,
+        'data': data.val()
+      }
+
+      state.chatList.push(chat)
+    })
     state.chatList = chatList
   },
   [M.CHANGE_CHAT] (state, chatId) {
-    state.CHATDATABASE = firebase.database()
+    if (state.CHATDATABASE === '') {
+      state.CHATDATABASE = firebase.database()
+    }
     state.chatSetting.chatId = chatId
     console.log('/chatMessages/' + state.chatSetting.chatId)
+
     state.CHATDATABASE.ref('/chatMessages/' + state.chatSetting.chatId).limitToLast(1).on('child_added', function (data) {
       let addmessage = data.val()
-      state.chatMessages.push(addmessage)
+      if (state.chatMessages.length !== 0) {
+        state.chatMessages.push(addmessage)
+      }
     })
   },
   [M.ADD_BUBBLE_LIST] (state, chatMessagesData) {
@@ -281,6 +300,15 @@ const mutations = {
   },
   [M.CHANGE_SEND_MSG] (state, sendMsg) {
     state.chatSetting.sendMsg = sendMsg
+  },
+  [M.CREATE_CHAT] (state, chatName) {
+    console.log(chatName)
+    state.CHATDATABASE.ref('/chatList').push(chatName)
+    let chatMsg = {
+      label: 'Sunday, 19th'
+    }
+    state.CHATDATABASE.ref('/chatMessages/' + chatName).push(chatMsg)
+    // state.CHATDATABASE.ref(defaultPath).child('/' + state.chatSetting.chatId).push(chatList)
   }
 }
 
