@@ -58,12 +58,19 @@ export default {
   data () {
     return {
       loading: true,
-      sendMsg: '',
       header: true,
       footer: true
     }
   },
   computed: {
+    sendMsg: {
+      get () {
+        return this.$store.getters.getSendMsg
+      },
+      set (v) {
+        this.$store.dispatch(M.CHANGE_SEND_MSG, v)
+      }
+    },
     ...mapGetters({
       chatMessages: 'getChatMessages',
       userInfo: 'getUserInfo'
@@ -75,9 +82,7 @@ export default {
   },
   methods: {
     chatSend () {
-      let sendMsg = this.sendMsg
-      this.sendMsg = ''
-      this.$store.dispatch(M.SEND_CHAT, sendMsg)
+      this.$store.dispatch(M.SEND_CHAT)
     }
   }
 }

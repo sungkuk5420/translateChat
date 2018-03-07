@@ -1,5 +1,5 @@
 <template>
-  <q-item @click="goChatRoom">
+  <q-item @click="goChatRoom(name)">
     <q-item-side avatar="http://quasar-framework.org/quasar-play/apple/statics/boy-avatar.png" />
     <q-item-main v-bind:label="name"  />
     <q-item-side right icon="chat_bubble" />
@@ -27,7 +27,9 @@ export default {
     return {}
   },
   methods: {
-    goChatRoom () {
+    goChatRoom (name) {
+      console.log(name)
+      this.$store.dispatch(M.CHANGE_CHAT_ID, name)
       this.$store.dispatch(M.GO_OTHER_PAGE, 'chatRoom')
     }
   }

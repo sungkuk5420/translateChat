@@ -5,7 +5,8 @@ import router from 'router'
 
 const state = {
   userInfo: {
-    name: 'abcd'
+    name: '',
+    image: ''
   },
   chatList: [
   ],
@@ -169,6 +170,7 @@ const state = {
   ],
   chatSetting: {
     chatId: '',
+    sendMsg: '',
     yourBubble: {
       textColor: 'black',
       bgColor: ''
@@ -191,10 +193,16 @@ const getters = {
   },
   getChatMessages () {
     return state.chatMessages
+  },
+  getSendMsg () {
+    return state.chatSetting.sendMsg
   }
 }
 
 const actions = {
+  [M.CHANGE_CHAT_ID] ({ commit }, chatId) {
+    commit(M.CHANGE_CHAT_ID, chatId)
+  },
   [M.GO_OTHER_PAGE] ({ commit }, pathStr) {
     commit(M.GO_OTHER_PAGE, pathStr)
   },
@@ -218,14 +226,21 @@ const actions = {
       console.error(error)
     })
   },
-  [M.SEND_CHAT] ({ commit }, sendMsg) {
-    commit(M.SEND_CHAT, sendMsg)
+  [M.SEND_CHAT] ({ commit }) {
+    commit(M.SEND_CHAT)
+  },
+  [M.CHANGE_SEND_MSG] ({ commit }, sendMsg) {
+    commit(M.CHANGE_SEND_MSG, sendMsg)
   }
 }
 
 const mutations = {
+  [M.CHANGE_CHAT_ID] (state, chatId) {
+    state.chatSetting.chatId = chatId
+  },
   [M.GO_OTHER_PAGE] (state, pathStr) {
     if (pathStr === 'chatRoom') {
+      console.log(state.chatSetting.chatId)
       router.push({ path: `/${pathStr}`, query: { chatId: state.chatSetting.chatId } })
     }
     else {
@@ -253,15 +268,19 @@ const mutations = {
       state.chatMessages.push(chatMessages[0].data[currentChatMessage])
     }
   },
-  [M.SEND_CHAT] (state, sendMsg) {
+  [M.SEND_CHAT] (state) {
     let message = {
       name: 'abc',
-      text: [sendMsg],
+      text: [state.chatSetting.sendMsg],
       userImage: 'http://quasar-framework.org/quasar-play/apple/statics/boy-avatar.png',
       timeStamp: 'Yesterday 13'
     }
+    state.chatSetting.sendMsg = ''
     state.CHATDATABASE.ref(defaultPath).child('/' + state.chatSetting.chatId).push(message)
     // state.chatMessages.push(message)
+  },
+  [M.CHANGE_SEND_MSG] (state, sendMsg) {
+    state.chatSetting.sendMsg = sendMsg
   }
 }
 
