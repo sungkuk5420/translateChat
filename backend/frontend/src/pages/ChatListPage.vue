@@ -1,6 +1,9 @@
 <template>
   <q-list highlight class="no-border">
-    <q-list-header>public chat</q-list-header>
+    <q-list-header icon="chat_bubble">
+      public chat
+      <q-icon name="ion-plus-round" @click="createChat()" />
+    </q-list-header>
     <chat-list-item
     v-for="(crruentChat) in chatList"
     v-bind:name="crruentChat.data"
@@ -14,14 +17,15 @@
 import { M } from '../store/types'
 import { mapGetters } from 'vuex'
 import chatListItem from '../components/ChatListItem'
-
 import {
   QList,
   QListHeader,
   QIcon,
   QItem,
   QItemSide,
-  QItemMain
+  QItemMain,
+  Dialog,
+  Toast
 } from 'quasar'
 
 export default {
@@ -32,7 +36,9 @@ export default {
     QItem,
     QItemSide,
     QItemMain,
-    chatListItem
+    chatListItem,
+    Dialog,
+    Toast
   },
   data () {
     return {}
@@ -44,6 +50,56 @@ export default {
   },
   beforeCreate () {
     this.$store.dispatch(M.CAHNGE_CHAT_LIST)
+  },
+  methods: {
+    createChat () {
+      Dialog.create({
+        title: 'Prompt',
+        form: {
+          name: {
+            type: 'text',
+            label: 'Textbox',
+            model: ''
+          },
+          pass: {
+            type: 'password',
+            label: 'Password',
+            model: ''
+          },
+          age: {
+            type: 'number',
+            label: 'Numeric',
+            model: 10,
+            min: 1,
+            max: 100
+          },
+          tags: {
+            type: 'chips',
+            label: 'Chips',
+            model: ['Joe', 'John']
+          },
+          comments: {
+            type: 'textarea',
+            label: 'Textarea',
+            model: ''
+          }
+        },
+        buttons: [
+          'Cancel',
+          {
+            label: 'Ok',
+            handler (data) {
+              Toast.create('Returned ' + JSON.stringify(data))
+              // data.name is 'Quasar'
+              // data.pass is 'rulz!'
+              // data.age is 1
+              // data.tags is ['Joe', 'John'],
+              // data.comments is 'Some comments...'
+            }
+          }
+        ]
+      })
+    }
   }
 }
 </script>
@@ -53,6 +109,19 @@ export default {
     top: 5px;
     margin-left: 20px !important;
     right: initial;
+  }
+  .q-list-header{
+    position: relative;
+  }
+  .ion-plus-round{
+    font-size:18px;
+    right: 20px;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    &:hover{
+      cursor: pointer;
+    }
   }
 </style>
 
