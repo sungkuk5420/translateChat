@@ -114,6 +114,13 @@ body,
 .layout-page,
 .layout-page-container {
   overflow: hidden;
+  min-height:inherit !important;
+}
+
+.layout-page{
+  position: fixed;
+  height: 100%;
+  width: 100%;
 }
 q-page-container{
   position: absolute;
@@ -126,6 +133,6 @@ q-page-container{
 }
 .fixfixed .header,
 .fixfixed .footer {
-    position: absolute;
+  position: absolute;
 }
 </style>
