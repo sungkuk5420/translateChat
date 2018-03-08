@@ -102,6 +102,7 @@ export default {
 }
 .footer{
   position: fixed;
+  height: 50px;
   bottom: 0;
 }
 .layout-page-container {
@@ -112,14 +113,15 @@ body,
 .q-app,
 .layout,
 .layout-page,
-.layout-page-container {
+.layout-page-container,
+* {
   overflow: hidden;
   min-height:inherit !important;
 }
 
 .layout-page{
   position: fixed;
-  height: 100%;
+  height: 30%;
   width: 100%;
 }
 q-page-container{
