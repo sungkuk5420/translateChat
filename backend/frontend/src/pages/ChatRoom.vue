@@ -2,7 +2,7 @@
   <q-layout :view="'hHh Lpr lFf'">
     <!-- your content -->
     <back-btn-toolbar class="header"></back-btn-toolbar>
-    <q-page-container class="scroll overflow-hidde"  style="padding-top: 50px;" v-chat-scroll>
+    <q-page-container class="scroll overflow-hidde"  style="padding-top: 50px;" v-chat-scroll @touch="this.$refs.inputText.blur()">
       <q-chat-message
         v-for="msg in chatMessages"
         :key="msg.key"
@@ -16,7 +16,7 @@
         :stamp="msg.stamp"
       />
     </q-page-container>
-    <q-input class="no-margin full-width footer" autofocus inverted v-model="sendMsg" stack-label="send message" :after="[{icon: 'arrow_forward', content: true, handler () {chatSend()}  }]" @keydown.enter="chatSend" @focus="addFixed()" @blur=" removeFixed()" />
+    <q-input class="no-margin full-width footer" ref="inputText" autofocus inverted v-model="sendMsg" stack-label="send message" :after="[{icon: 'arrow_forward', content: true, handler () {chatSend()}  }]" @keydown.enter="chatSend" @focus="addFixed()" @blur=" removeFixed()" />
 
   </q-layout>
 </template>
