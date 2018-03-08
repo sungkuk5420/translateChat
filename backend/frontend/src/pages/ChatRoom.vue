@@ -84,7 +84,7 @@ export default {
     addFixed () {
       document.body.classList.add('fixfixed')
       document.getElementsByClassName('scroll')[0].style.height = 300 + 'px'
-      $('*').each(function(item){
+      $('*').each(function (item) {
         $(this).height('300px')
       })
     },
