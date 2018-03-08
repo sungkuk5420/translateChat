@@ -6,9 +6,21 @@
     <meta name="msapplication-tap-highlight" content="no">
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black" />
-    <meta name="viewport" content = "width=device-width, height=device-height, initial-scale = 1, user-scalable = no" />
-    <title>Quasar App</title>
+    <meta name="viewport" content="width=device-width,height=device-height,user-scalable=no,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0">
+    <title>chat app</title>
     <link rel="icon" href="statics/quasar-logo.png" type="image/x-icon">
+
+    <!-- android -->
+    <link rel="shortcut icon" sizes="196x196" href="icon-196x196.png">
+
+    <!-- iOS -->
+    <link rel="apple-touch-icon" href="statics/appIcon.jpg">
+    <link rel="apple-touch-icon" sizes="76x76" href="statics/appIcon.jpg">
+    <link rel="apple-touch-icon" sizes="120x120" href="statics/appIcon.jpg">
+    <link rel="apple-touch-icon" sizes="152x152" href="statics/appIcon.jpg">
+
+    <!-- splash -->
+    <link rel="apple-touch-startup-image" href="statics/Fuber-Animation.gif">
   </head>
   <body>
     <div id="q-app"></div>
@@ -18,9 +30,9 @@
     <script src="statics/firebaseKey.js"></script>
     <script src="http://13.125.125.39:4000/javascripts/translate.js"></script>
     <script>
-    document.ontouchmove = function(event){
-      event.preventDefault();
-    }
+    // document.ontouchmove = function(event){
+    //   event.preventDefault();
+    // }
     </script>
   </body>
 </html>
