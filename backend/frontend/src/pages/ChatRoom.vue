@@ -106,6 +106,7 @@ export default {
 }
 .layout-page-container {
   height:100%;
+  overflow: hidden;
 }
 q-page-container{
   position: absolute;
