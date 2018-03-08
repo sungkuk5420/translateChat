@@ -106,6 +106,13 @@ export default {
 }
 .layout-page-container {
   height:100%;
+}
+html,
+body,
+.q-app,
+.layout,
+.layout-page,
+.layout-page-container {
   overflow: hidden;
 }
 q-page-container{
