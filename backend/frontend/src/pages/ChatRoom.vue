@@ -2,7 +2,7 @@
   <q-layout :view="'hHh Lpr lFf'">
     <!-- your content -->
     <back-btn-toolbar class="header"></back-btn-toolbar>
-    <q-page-container class="scroll overflow-hidde"  style="padding-top: 50px;" v-chat-scroll @click="this.$refs.inputText.blur()">
+    <q-page-container class="scroll overflow-hidde"  style="padding-top: 50px;" v-chat-scroll @scroll="removeFocus()">
       <q-chat-message
         v-for="msg in chatMessages"
         :key="msg.key"
@@ -86,6 +86,10 @@ export default {
     },
     removeFixed () {
       document.body.classList.remove('fixfixed')
+    },
+    removeFocus () {
+      console.log('aa')
+      this.$refs.inputText.blur()
     }
   }
 }
