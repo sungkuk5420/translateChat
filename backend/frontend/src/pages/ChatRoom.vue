@@ -1,24 +1,5 @@
 <template>
-  <q-layout :view="'hHh Lpr lFf'">
-    <!-- your content -->
-    <back-btn-toolbar class="header"></back-btn-toolbar>
-    <q-page-container class="scroll overflow-hidde"  style="padding-top: 50px;" v-chat-scroll>
-      <q-chat-message
-        v-for="msg in chatMessages"
-        :key="msg.key"
-        :label="msg.label"
-        :sent="(msg.name === userInfo.name) ? true : false"
-        :text-color="'black'"
-        :bg-color="''"
-        :name="msg.name"
-        :avatar="msg.userImage === undefined ? '' : ((msg.name === userInfo.name) ? 'http://quasar-framework.org/quasar-play/apple/statics/boy-avatar.png' : 'http://quasar-framework.org/quasar-play/android/statics/linux-avatar.png')"
-        :text="msg.text"
-        :stamp="msg.stamp"
-      />
-    </q-page-container>
-    <q-input class="no-margin full-width footer" autofocus inverted v-model="sendMsg" stack-label="send message" :after="[{icon: 'arrow_forward', content: true, handler () {chatSend()}  }]" @keydown.enter="chatSend" @focus="addFixed()" @blur=" removeFixed()" />
-
-  </q-layout>
+  <q-input class="no-margin full-width footer" autofocus inverted v-model="sendMsg" stack-label="send message" :after="[{icon: 'arrow_forward', content: true, handler () {chatSend()}  }]" @keydown.enter="chatSend" @focus="addFixed()" @blur=" removeFixed()" />
 </template>
 
 <script>
@@ -87,7 +68,7 @@ export default {
     },
     removeFixed () {
       document.body.classList.remove('fixfixed')
-      document.getElementsByClassName('scroll')[0].style.height = '100%'
+      // document.getElementsByClassName('scroll')[0].style.height = '100%'
     }
   }
 }
