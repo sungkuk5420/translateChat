@@ -1,5 +1,7 @@
 <template>
   <q-layout :view="'hHh Lpr lFf'">
+    <!-- your content -->
+    <back-btn-toolbar class="header"></back-btn-toolbar>
     <q-page-container class="scroll overflow-hidde"  style="padding-top: 50px;" v-chat-scroll>
       <q-chat-message
         v-for="msg in chatMessages"
@@ -81,15 +83,9 @@ export default {
     },
     addFixed () {
       document.body.classList.add('fixfixed')
-      document.getElementsByClassName('scroll')[0].style.height = 300 + 'px'
-      $('*').each(function (item) {
-        $(this).height('10px')
-        $(this).css('overflow', 'hidden')
-      })
     },
     removeFixed () {
       document.body.classList.remove('fixfixed')
-      // document.getElementsByClassName('scroll')[0].style.height = '100%'
     }
   }
 }
@@ -104,27 +100,10 @@ export default {
 }
 .footer{
   position: fixed;
-  height: 50px;
   bottom: 0;
 }
 .layout-page-container {
   height:100%;
-}
-html,
-body,
-.q-app,
-.layout,
-.layout-page,
-.layout-page-container,
-* {
-  overflow: hidden !important;
-  min-height:inherit !important;
-}
-
-.layout-page{
-  position: fixed;
-  height: 50%;
-  width: 100%;
 }
 q-page-container{
   position: absolute;
@@ -137,6 +116,6 @@ q-page-container{
 }
 .fixfixed .header,
 .fixfixed .footer {
-  position: absolute;
+    position: absolute;
 }
 </style>

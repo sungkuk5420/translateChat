@@ -18,12 +18,9 @@
     <script src="statics/firebaseKey.js"></script>
     <script src="http://13.125.125.39:4000/javascripts/translate.js"></script>
     <script>
-    window.addEventListener('resize', function(event){
-      alert('resize!')
-      setTimeout(() => {
-        alert(document.documentElement.clientHeight)
-      }, 100)
-    });
-</script>
+    document.ontouchmove = function(event){
+      event.preventDefault();
+    }
+    </script>
   </body>
 </html>
