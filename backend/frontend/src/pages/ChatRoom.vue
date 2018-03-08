@@ -83,7 +83,8 @@ export default {
       document.body.classList.add('fixfixed')
       document.getElementsByClassName('scroll')[0].style.height = 300 + 'px'
       $('*').each(function (item) {
-        $(this).height('300px')
+        $(this).height('10px')
+        $(this).css('overflow','hidden')
       })
     },
     removeFixed () {
