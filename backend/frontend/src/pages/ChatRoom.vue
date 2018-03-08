@@ -84,7 +84,7 @@ export default {
       document.getElementsByClassName('scroll')[0].style.height = 300 + 'px'
       $('*').each(function (item) {
         $(this).height('10px')
-        $(this).css('overflow','hidden')
+        $(this).css('overflow', 'hidden')
       })
     },
     removeFixed () {
