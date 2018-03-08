@@ -2,7 +2,7 @@
   <q-layout :view="'hHh Lpr lFf'">
     <!-- your content -->
     <back-btn-toolbar class="header"></back-btn-toolbar>
-    <q-page-container class="scroll overflow-hidde"  style="padding-top: 50px;" v-chat-scroll @touch="alert('a')">
+    <q-page-container class="scroll overflow-hidde"  style="padding-top: 50px;" v-chat-scroll @click="this.$refs.inputText.blur()">
       <q-chat-message
         v-for="msg in chatMessages"
         :key="msg.key"
