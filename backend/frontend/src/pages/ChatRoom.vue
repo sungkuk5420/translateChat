@@ -115,13 +115,13 @@ body,
 .layout-page,
 .layout-page-container,
 * {
-  overflow: hidden;
+  overflow: hidden !important;
   min-height:inherit !important;
 }
 
 .layout-page{
   position: fixed;
-  height: 30%;
+  height: 50%;
   width: 100%;
 }
 q-page-container{
