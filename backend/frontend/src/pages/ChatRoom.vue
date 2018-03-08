@@ -1,9 +1,7 @@
 <template>
   <q-layout :view="'hHh Lpr lFf'">
     <!-- your content -->
-    <q-toolbar v-model="header" :reveal="false" slot="header" class="fixed-top no-padding">
-      <back-btn-toolbar></back-btn-toolbar>
-    </q-toolbar>
+    <back-btn-toolbar class="header"></back-btn-toolbar>
     <q-page-container class="scroll overflow-hidde"  style="padding-top: 50px;" v-chat-scroll>
       <q-chat-message
         v-for="msg in chatMessages"
@@ -18,9 +16,8 @@
         :stamp="msg.stamp"
       />
     </q-page-container>
-    <q-toolbar v-model="footer" :reveal="false" slot="footer" class="no-margin no-padding fixed-bottom">
-        <q-input class="no-margin full-width" autofocus inverted v-model="sendMsg" stack-label="send message" :after="[{icon: 'arrow_forward', content: true, handler () {chatSend()}  }]" @keydown.enter="chatSend" />
-    </q-toolbar>
+    <q-input class="no-margin full-width footer" autofocus inverted v-model="sendMsg" stack-label="send message" :after="[{icon: 'arrow_forward', content: true, handler () {chatSend()}  }]" @keydown.enter="chatSend" @focus="addFixed()" @blur=" removeFixed()" />
+
   </q-layout>
 </template>
 
@@ -83,19 +80,26 @@ export default {
   methods: {
     chatSend () {
       this.$store.dispatch(M.SEND_CHAT)
+    },
+    addFixed () {
+      document.body.classList.add('fixfixed')
+    },
+    removeFixed () {
+      document.body.classList.remove('fixfixed')
     }
   }
 }
 </script>
 <style>
-q-layout-header{
+.header{
   z-index: 1;
-  position: absolute;
+  position: fixed;
   height: 50px;
   top: 0;
+  padding: 5px 10px;
 }
-q-layout-footer{
-  position: absolute;
+.footer{
+  position: fixed;
   bottom: 0;
 }
 .layout-page-container {
@@ -109,5 +113,9 @@ q-page-container{
 }
 .q-message-avatar {
   display: block;
+}
+.fixfixed .header,
+.fixfixed .footer {
+    position: absolute;
 }
 </style>
