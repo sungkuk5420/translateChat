@@ -97,7 +97,7 @@ export default {
       document.body.classList.remove('fixfixed')
     },
     removeFocus () {
-      this.$refs.inputText.blur()
+      // this.$refs.inputText.blur()
     }
   }
 }
