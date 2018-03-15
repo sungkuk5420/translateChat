@@ -1,8 +1,13 @@
 <template>
-  <q-layout :view="'hHh Lpr lFf'">
-    <!-- your content -->
+<q-layout view="hHr LpR lFf">
+  <!-- Header -->
+  <q-layout-header>
     <back-btn-toolbar class="header"></back-btn-toolbar>
-    <q-page-container class="scroll overflow-hidde"  style="padding-top: 50px;" v-chat-scroll @scroll="removeFocus()">
+  </q-layout-header>
+
+  <!-- sub-routes get injected here: -->
+  <q-page-container>
+    <q-page-container class="scroll overflow-hidde" id="chat-page-container" style="padding-top: 50px;" v-chat-scroll @scroll="removeFocus()">
       <q-chat-message
         v-for="msg in chatMessages"
         :key="msg.key"
@@ -16,9 +21,13 @@
         :stamp="msg.stamp"
       />
     </q-page-container>
-    <q-input class="no-margin full-width footer" ref="inputText" autofocus inverted v-model="sendMsg" stack-label="send message" :after="[{icon: 'arrow_forward', content: true, handler () {chatSend()}  }]" @keydown.enter="chatSend" @focus="addFixed()" @blur=" removeFixed()" />
+  </q-page-container>
 
-  </q-layout>
+  <!-- Footer -->
+  <q-layout-footer>
+    <q-input class="no-margin full-width footer" ref="inputText" autofocus inverted v-model="sendMsg" stack-label="send message" :after="[{icon: 'arrow_forward', content: true, handler () {chatSend()}  }]" @keydown.enter="chatSend" @focus="addFixed()" @blur=" removeFixed()" />
+  </q-layout-footer>
+</q-layout>
 </template>
 
 <script>
@@ -82,13 +91,12 @@ export default {
       this.$store.dispatch(M.SEND_CHAT)
     },
     addFixed () {
-      document.body.classList.add('fixfixed')
+
     },
     removeFixed () {
       document.body.classList.remove('fixfixed')
     },
     removeFocus () {
-      console.log('aa')
       this.$refs.inputText.blur()
     }
   }
@@ -110,7 +118,7 @@ export default {
   height:100%;
 }
 q-page-container{
-  position: absolute;
+  position: fixed;
   width: 100%;
   height: 100%;
   padding: 50px 10px 50px 10px;
