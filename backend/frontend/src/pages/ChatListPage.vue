@@ -1,10 +1,10 @@
 <template>
-  <q-list highlight class="no-border">
+  <q-list highlight class="no-border chat-list">
     <q-list-header icon="chat_bubble">
       public chat
       <q-icon name="ion-plus-round" @click="createChat()" />
     </q-list-header>
-    <q-scroll-area style="width: 100%; height: 400px;">
+    <q-scroll-area class="scoll-area">
       <chat-list-item
       v-for="(crruentChat) in chatList"
       v-bind:name="crruentChat.data"
@@ -115,6 +115,14 @@ export default {
     &:hover{
       cursor: pointer;
     }
+  }
+  .chat-list{
+    width: 100%;
+    height: 100%;
+  }
+  .scoll-area{
+    height: 100%;
+    overflow-y:auto;
   }
 </style>
 

@@ -4,7 +4,7 @@
     ref="layout"
     view="lHh Lpr fff"
     :left-class="{'bg-grey-2': true}"
-  >
+   class="main-container">
     <q-tabs>
       <!-- Tabs - notice slot="title" -->
       <q-tab default count="2" slot="title" name="tab-1" icon="message" />
@@ -68,7 +68,31 @@ export default {
 
 <style lang="scss" >
 html{
+  height: 100%;
   overflow: hidden;
+}
+body{
+  height: 100%;
+}
+.main-container{
+  height: 100%;
+}
+.main-container .layout-page-container{
+  height: 100%;
+}
+.main-container .layout-page{
+  height: 100%;
+}
+.main-container .q-tabs{
+  height: 100%;
+}
+.main-container .q-tabs-panes{
+  height: 100%;
+}
+.main-container .q-tab-pane{
+  // margin:-15px;
+  height:100%;
+  border:0;
 }
 .q-tab .q-chip{
   top: 5px;
@@ -76,10 +100,6 @@ html{
   right: initial;
 }
 </style>
-
 <style lang="scss" scoped>
-.q-tab-pane{
-  // margin:-15px;
-  border:0;
-}
+
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <q-list highlight>
+<q-list highlight class="setting-list">
   <q-list-header>setting</q-list-header>
   <q-item>
     <q-item-side>
@@ -93,7 +93,12 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss">
+
+.setting-list{
+  height: 100%;
+  overflow-y: auto;
+}
 q-item{
   margin-bottom: 10px;
 }
