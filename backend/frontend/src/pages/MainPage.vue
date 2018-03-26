@@ -14,7 +14,7 @@
         <chat-list-page></chat-list-page>
       </q-tab-pane>
       <q-tab-pane name="tab-2">
-        Tab Two
+        <setting-page></setting-page>
       </q-tab-pane>
     </q-tabs>
   </q-layout>
@@ -22,6 +22,7 @@
 
 <script>
 import chatListPage from './ChatListPage'
+import settingPage from './SettingPage'
 
 import {
   QLayout,
@@ -56,7 +57,8 @@ export default {
     QTab,
     QOptionGroup,
     QTabPane,
-    chatListPage
+    chatListPage,
+    settingPage
   },
   data () {
     return {}
@@ -65,13 +67,19 @@ export default {
 </script>
 
 <style lang="scss" >
-  .q-tab .q-chip{
-    top: 5px;
-    margin-left: 20px !important;
-    right: initial;
-  }
+html{
+  overflow: hidden;
+}
+.q-tab .q-chip{
+  top: 5px;
+  margin-left: 20px !important;
+  right: initial;
+}
 </style>
 
 <style lang="scss" scoped>
-
+.q-tab-pane{
+  // margin:-15px;
+  border:0;
+}
 </style>
