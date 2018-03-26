@@ -6,21 +6,19 @@
   </q-layout-header>
 
   <!-- sub-routes get injected here: -->
-  <q-page-container>
-    <q-page-container class="scroll overflow-hidde" id="chat-page-container" style="padding-top: 50px;" v-chat-scroll @scroll="removeFocus()">
-      <q-chat-message
-        v-for="msg in chatMessages"
-        :key="msg.key"
-        :label="msg.label"
-        :sent="(msg.name === userInfo.name) ? true : false"
-        :text-color="'black'"
-        :bg-color="''"
-        :name="msg.name"
-        :avatar="msg.userImage === undefined ? '' : ((msg.name === userInfo.name) ? 'http://quasar-framework.org/quasar-play/apple/statics/boy-avatar.png' : 'http://quasar-framework.org/quasar-play/android/statics/linux-avatar.png')"
-        :text="msg.text"
-        :stamp="msg.stamp"
-      />
-    </q-page-container>
+  <q-page-container class="scroll overflow-hidde" id="chat-page-container" style="padding-top: 50px;" v-chat-scroll @scroll="removeFocus()">
+    <q-chat-message
+      v-for="msg in chatMessages"
+      :key="msg.key"
+      :label="msg.label"
+      :sent="(msg.name === userInfo.name) ? true : false"
+      :text-color="'black'"
+      :bg-color="''"
+      :name="msg.name"
+      :avatar="msg.userImage === undefined ? '' : ((msg.name === userInfo.name) ? 'http://quasar-framework.org/quasar-play/apple/statics/boy-avatar.png' : 'http://quasar-framework.org/quasar-play/android/statics/linux-avatar.png')"
+      :text="msg.text"
+      :stamp="msg.stamp"
+    />
   </q-page-container>
 
   <!-- Footer -->
