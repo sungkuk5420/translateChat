@@ -4,12 +4,14 @@
       public chat
       <q-icon name="ion-plus-round" @click="createChat()" />
     </q-list-header>
-    <chat-list-item
-    v-for="(crruentChat) in chatList"
-    v-bind:name="crruentChat.data"
-    v-bind:id="crruentChat.id"
-    v-bind:key="crruentChat.id">
-    </chat-list-item>
+    <q-scroll-area style="width: 100%; height: 400px;">
+      <chat-list-item
+      v-for="(crruentChat) in chatList"
+      v-bind:name="crruentChat.data"
+      v-bind:id="crruentChat.id"
+      v-bind:key="crruentChat.id">
+      </chat-list-item>
+    </q-scroll-area>
   </q-list>
 </template>
 
@@ -25,7 +27,8 @@ import {
   QItemSide,
   QItemMain,
   Dialog,
-  Toast
+  Toast,
+  QScrollArea
 } from 'quasar'
 
 export default {
@@ -38,7 +41,8 @@ export default {
     QItemMain,
     chatListItem,
     Dialog,
-    Toast
+    Toast,
+    QScrollArea
   },
   data () {
     return {}
@@ -55,33 +59,21 @@ export default {
     createChat () {
       let thisObj = this
       Dialog.create({
-        title: 'Prompt',
+        title: '방 만들기',
         form: {
           chatName: {
             type: 'text',
-            label: 'Textbox'
+            label: '방 이름'
           },
           pass: {
             type: 'password',
             label: 'Password',
             model: ''
           },
-          age: {
-            type: 'number',
-            label: 'Numeric',
-            model: 10,
-            min: 1,
-            max: 100
-          },
           tags: {
             type: 'chips',
-            label: 'Chips',
-            model: ['Joe', 'John']
-          },
-          comments: {
-            type: 'textarea',
-            label: 'Textarea',
-            model: ''
+            label: '태그',
+            model: []
           }
         },
         buttons: [
@@ -89,13 +81,13 @@ export default {
           {
             label: 'Ok',
             handler (data) {
-              Toast.create('Returned ' + JSON.stringify(data))
-              // data.name is 'Quasar'
-              // data.pass is 'rulz!'
-              // data.age is 1
-              // data.tags is ['Joe', 'John'],
-              // data.comments is 'Some comments...'
-              thisObj.$store.dispatch(M.CREATE_CHAT, data.chatName)
+              if (data.chatName !== undefined) {
+                Toast.create('방을 생성하였습니다. ' + JSON.stringify(data))
+                thisObj.$store.dispatch(M.CREATE_CHAT, data.chatName)
+              }
+              else {
+                Toast.create('방 이름을 입력해주세요.')
+              }
             }
           }
         ]
