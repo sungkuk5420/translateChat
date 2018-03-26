@@ -70,6 +70,9 @@ export default {
 html{
   overflow: hidden;
 }
+body{
+  padding: 0 !important;
+}
 .q-tab .q-chip{
   top: 5px;
   margin-left: 20px !important;
