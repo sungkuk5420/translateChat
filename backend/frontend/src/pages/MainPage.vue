@@ -77,16 +77,16 @@ html,body {
     height: 100%;
     .layout-page{
      height: 100%;
-     .q-tabs{
+    }
+  }
+}
+.layout-page .q-tabs{
+  height: 100%;
+  .q-tabs-panes{
+    height: 100%;
+    .q-tab-pane{
       height: 100%;
-        .q-tabs-panes{
-          height: 100%;
-          .q-tab-pane{
-            height: 100%;
-            border: 0;
-          }
-        }
-      }
+      border: 0;
     }
   }
 }
