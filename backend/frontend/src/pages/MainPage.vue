@@ -80,9 +80,9 @@ html,body {
     height: 100%;
   }
   .q-tab-pane{
-      height: 100%;
-      border: 0;
-    }
+    height: 100%;
+    border: 0;
+  }
 }
 .q-tab .q-chip{
   top: 5px;
