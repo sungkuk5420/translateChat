@@ -73,22 +73,16 @@ html,body {
 }
 .main-container{
   height: 100%;
-  .layout-page-container{
-    height: 100%;
-    .layout-page{
-     height: 100%;
-    }
-  }
-}
-.layout-page .q-tabs{
-  height: 100%;
+  .layout-page-container,
+  .layout-page,
+  .q-tabs,
   .q-tabs-panes{
     height: 100%;
-    .q-tab-pane{
+  }
+  .q-tab-pane{
       height: 100%;
       border: 0;
     }
-  }
 }
 .q-tab .q-chip{
   top: 5px;
