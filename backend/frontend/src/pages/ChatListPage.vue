@@ -104,7 +104,10 @@ export default {
     right: initial;
   }
   .q-list-header{
-    position: relative;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
   }
   .ion-plus-round{
     font-size:18px;
@@ -119,13 +122,14 @@ export default {
   .chat-list{
     width: 100%;
     height: 100%;
-  }
-  .scoll-area{
-    height: 100%;
-    overflow-y:auto;
+    position: relative;
+    padding: 50px 0;
   }
 </style>
 
-<style lang="scss" scoped>
-
+<style lang="scss" scope>
+.scoll-area{
+  height: 100%;
+  overflow-y:auto;
+}
 </style>

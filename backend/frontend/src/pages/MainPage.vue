@@ -67,32 +67,28 @@ export default {
 </script>
 
 <style lang="scss" >
-html{
+html,body {
   height: 100%;
   overflow: hidden;
 }
-body{
-  height: 100%;
-}
 .main-container{
   height: 100%;
-}
-.main-container .layout-page-container{
-  height: 100%;
-}
-.main-container .layout-page{
-  height: 100%;
-}
-.main-container .q-tabs{
-  height: 100%;
-}
-.main-container .q-tabs-panes{
-  height: 100%;
-}
-.main-container .q-tab-pane{
-  // margin:-15px;
-  height:100%;
-  border:0;
+  .layout-page-container{
+    height: 100%;
+    .layout-page{
+     height: 100%;
+     .q-tabs{
+      height: 100%;
+        .q-tabs-panes{
+          height: 100%;
+          .q-tab-pane{
+            height: 100%;
+            border: 0;
+          }
+        }
+      }
+    }
+  }
 }
 .q-tab .q-chip{
   top: 5px;
