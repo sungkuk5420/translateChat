@@ -20,7 +20,6 @@
     </q-item-side>
     <q-item-main label="버전정보" />
   </q-item>
-  <q-item-separator />
   <q-item>
     <q-item-side>
       <q-item-tile icon="lock" />
@@ -57,7 +56,6 @@
     </q-item-side>
     <q-item-main label="기타" />
   </q-item>
-  <q-item-separator />
   <q-item>
     <q-item-side>
       <q-item-tile icon="help" />
@@ -93,12 +91,15 @@ export default {
     return {}
   }
 }
+
 </script>
 
 <style lang="scss" scope>
 .setting-list{
-  padding-top: 50px;
+  height: 100%;
+  padding: 50px 0;
   position: relative;
+  border: 0;
   .setting-wrap{
     height: 100%;
     position: relative;
