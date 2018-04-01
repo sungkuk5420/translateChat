@@ -14,5 +14,8 @@
   "license": "ISC",
   "devDependencies": {
     "concurrently": "^3.1.0"
+  },
+  "dependencies": {
+    "@egjs/infinitegrid": "^3.3.0"
   }
 }

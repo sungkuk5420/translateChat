@@ -26,7 +26,8 @@ export default new VueRouter({
 
   routes: [
     { path: '/', component: load('MainPage') },
-    { path: '/ChatRoom', component: load('ChatRoom'), props: (route) => ({ query: route.query }) },
+    { path: '/chatRoom', component: load('ChatRoomPage'), props: (route) => ({ query: route.query }) },
+    { path: '/chatProfile', component: load('ChatProfilePage') },
 
     // Always leave this last one
     { path: '*', component: load('Error404') } // Not found
