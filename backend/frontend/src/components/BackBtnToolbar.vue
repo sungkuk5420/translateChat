@@ -1,7 +1,8 @@
 <template>
-  <q-toolbar>
+  <q-toolbar slot="header">
     <q-btn flat  @click="goMainPage" >
       <q-icon push name="ion-arrow-left-c" ></q-icon>
+      <q-toolbar-title v-if="title">{{title}}</q-toolbar-title>
     </q-btn>
   </q-toolbar>
 </template>
@@ -11,13 +12,16 @@ import { M } from '../store/types'
 import {
   QBtn,
   QToolbar,
+  QToolbarTitle,
   QIcon
 } from 'quasar'
 
 export default {
+  props: ['title'],
   components: {
     QBtn,
     QToolbar,
+    QToolbarTitle,
     QIcon
   },
   data () {
