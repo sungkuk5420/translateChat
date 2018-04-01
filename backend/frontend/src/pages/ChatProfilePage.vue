@@ -7,7 +7,7 @@
     <div class="container3">
     </div>
     <!-- <q-input stack-label="닉네임 입력" value="testText"/> -->
-    <q-input float-label="닉네임 입력" v-model="text" />
+    <q-input float-label="닉네임 입력" v-model="text"/>
   </div>
   <div class="layer"></div>
 </q-layout>
@@ -44,7 +44,7 @@ export default {
   beforeCreate () {
   },
   mounted () {
-    var template3 = `<div class='item'><div class='info'><img src='/statics/avator_{no}.jpg'><p class='title'>title</p></div></div>`
+    var template3 = `<div class='item' onclick='select()'><div class='info'><img src='/statics/avator_{no}.jpg'><i class='material-icons edit'>edit</i><p class='title'>title</p></div></div>`
 
     this.ig3 = this.createGrid('.container3', template3)
     var thisObj = this
@@ -124,6 +124,16 @@ export default {
 <style scope>
 #chat-profile-page-container{
   padding: 10px;
+}
+.edit {
+  position: absolute;
+  right: 8px;
+  bottom: 23px;
+  z-index: 10;
+  font-size: 20px;
+  background: white;
+  border-radius: 50%;
+  color: #ccc;
 }
 .q-toolbar{
   background: transparent;
