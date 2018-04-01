@@ -37,14 +37,15 @@ export default {
   },
   data () {
     return {
-      link: `https://naver.github.io/egjs-infinitegrid/assets/html/`,
-      ig: ''
+      ig: '',
+      text: ''
     }
   },
   beforeCreate () {
   },
   mounted () {
-    var template3 = `<div class='item'><div class='info'><img src='${this.link}../image/{no}.jpg'><p class='title'>title</p></div></div>`
+    var template3 = `<div class='item'><div class='info'><img src='/statics/avator_{no}.jpg'><p class='title'>title</p></div></div>`
+
     this.ig3 = this.createGrid('.container3', template3)
     var thisObj = this
     this.ig3.on({
@@ -69,7 +70,7 @@ export default {
       var thisObj = this
       function getItems (length) {
         var arr = []
-        for (var i = 0; i < length; ++i) {
+        for (var i = 0; i < 5; ++i) {
           arr.push(getItem(itemTemplate, {
             no: i % 60 + 1,
             title: 'egjs post' + (i + 1),
