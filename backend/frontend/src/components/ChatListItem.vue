@@ -31,6 +31,7 @@ export default {
       console.log(name)
       this.$store.dispatch(M.CHANGE_CHAT_ID, name)
       // this.$store.dispatch(M.GO_OTHER_PAGE, 'chatRoom')
+      this.$store.dispatch(M.GO_OTHER_PAGE, 'chatProfile')
     }
   }
 }
