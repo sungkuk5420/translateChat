@@ -2,8 +2,8 @@
   <q-toolbar slot="header">
     <q-btn flat  @click="goMainPage" >
       <q-icon push name="ion-arrow-left-c" ></q-icon>
-      <q-toolbar-title v-if="title">{{title}}</q-toolbar-title>
     </q-btn>
+    <q-toolbar-title v-if="title">{{title}}</q-toolbar-title>
   </q-toolbar>
 </template>
 
