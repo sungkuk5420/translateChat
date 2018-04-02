@@ -44,11 +44,11 @@ export default {
   beforeCreate () {
   },
   mounted () {
-    var template3 = `<div class='item' onclick='select()'><div class='info'><img src='/statics/avator_{no}.jpg'><i class='material-icons edit'>edit</i><p class='title'>title</p></div></div>`
+    var template3 = `<div class='item {customClass}' onclick='window.ig3.moveTo({groupKey},{index})' ><div class='info'><img src='/statics/avator_{no}.jpg'><i class='material-icons edit'>edit</i><p class='title'>title</p></div></div>`
 
-    this.ig3 = this.createGrid('.container3', template3)
+    window.ig3 = this.createGrid('.container3', template3)
     var thisObj = this
-    this.ig3.on({
+    window.ig3.on({
       'change': function (e) {
         var pos = e.scrollPos
         thisObj.refresh(pos)
@@ -68,18 +68,25 @@ export default {
         })
       }
       var thisObj = this
-      function getItems (length) {
+      var imageLength = 6
+      function getItems (length, groupKey) {
         var arr = []
-        for (var i = 0; i < 5; ++i) {
+        var groupIndex = groupKey === undefined ? 0 : groupKey
+        var startIndex = groupKey === undefined ? 0 : 2
+        for (var i = startIndex; i < (imageLength + 2); ++i) {
+          var replaceGroupKey = ((groupIndex > 0) && ((i - (imageLength - 2)) < 0)) ? groupIndex - 1 : groupIndex
           arr.push(getItem(itemTemplate, {
             no: i % 60 + 1,
             title: 'egjs post' + (i + 1),
-            link: thisObj.link
+            link: thisObj.link,
+            customClass: i < 2 ? 'hide' : '',
+            groupKey: replaceGroupKey,
+            index: ((replaceGroupKey) < groupIndex) ? (((replaceGroupKey) === 0) ? (imageLength + 2) : imageLength) - Math.abs(i - (imageLength - 2)) : ((replaceGroupKey) > 0 ? i - (imageLength - 2) : i - (imageLength - 4))
           }))
         }
         return arr
       }
-      var num = 21
+      var num = imageLength
       var ig = new eg.InfiniteGrid(container, {
         horizontal: true,
         isOverflowScroll: true
@@ -93,7 +100,7 @@ export default {
       })
       ig.on('append', function (e) {
         var groupKey = (e.groupKey || 0) + 1
-        ig.append(getItems(num), groupKey)
+        ig.append(getItems(num, groupKey), groupKey)
       })
 
       ig.append(getItems(num * 2), 0)
@@ -101,10 +108,10 @@ export default {
       return ig
     },
     refresh (pos) {
-      var size = this.ig3._renderer._size.view
+      var size = window.ig3._renderer._size.view
       var csize = Math.pow(size / 2, 2)
       var centerPos = pos + size / 2
-      this.ig3.getItems().forEach(function (item) {
+      window.ig3.getItems().forEach(function (item, index) {
         if (pos > item.rect.left + item.size.width || pos + size < item.rect.left) {
           return
         }
@@ -199,6 +206,11 @@ body {
       bottom: 0;
       margin: auto;
       text-align: center;
+      cursor: pointer;
+
+      &.hide{
+        display: none;
+      }
 
       .info{
         img {
