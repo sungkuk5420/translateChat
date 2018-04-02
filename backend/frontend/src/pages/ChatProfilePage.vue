@@ -44,7 +44,7 @@ export default {
   beforeCreate () {
   },
   mounted () {
-    var template3 = `<div class='item {customClass}' onclick='window.ig3.moveTo({groupKey},{index})' ><div class='info'><img src='/statics/avator_{no}.jpg'><i class='material-icons edit'>edit</i><p class='title'>title</p></div></div>`
+    var template3 = `<div class='item {customClass}' onclick='window.ig3.moveTo({groupKey},{index})' ><div class='info'><img src='/statics/avator_{no}.jpg'><i class='material-icons edit'>edit</i><p class='title'>{title}</p></div></div>`
 
     window.ig3 = this.createGrid('.container3', template3)
     var thisObj = this
@@ -73,16 +73,18 @@ export default {
         var arr = []
         var groupIndex = groupKey === undefined ? 0 : groupKey
         var startIndex = groupKey === undefined ? 0 : 2
+        var imageIndex = groupIndex === 0 ? -1 : 1
         for (var i = startIndex; i < (imageLength + 2); ++i) {
           var replaceGroupKey = ((groupIndex > 0) && ((i - (imageLength - 2)) < 0)) ? groupIndex - 1 : groupIndex
           arr.push(getItem(itemTemplate, {
             no: i % 60 + 1,
-            title: 'egjs post' + (i + 1),
+            title: 'avator' + imageIndex,
             link: thisObj.link,
             customClass: i < 2 ? 'hide' : '',
             groupKey: replaceGroupKey,
             index: ((replaceGroupKey) < groupIndex) ? (((replaceGroupKey) === 0) ? (imageLength + 2) : imageLength) - Math.abs(i - (imageLength - 2)) : ((replaceGroupKey) > 0 ? i - (imageLength - 2) : i - (imageLength - 4))
           }))
+          imageIndex++
         }
         return arr
       }
