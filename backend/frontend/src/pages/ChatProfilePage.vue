@@ -122,44 +122,6 @@ export default {
 }
 </script>
 <style lang="scss">
-
-#chat-profile-page-container{
-  padding: 10px;
-  top: 30%;
-}
-
-.edit {
-  position: absolute;
-  right: 8px;
-  bottom: 23px;
-  z-index: 10;
-  font-size: 20px;
-  background: white;
-  border-radius: 50%;
-  color: #ccc;
-}
-.q-toolbar{
-  background: transparent;
-}
-.q-toolbar,
-#chat-profile-page-container{
-  position: absolute;
-  width: 100%;
-  z-index: 1;
-  color: white;
-}
-.q-if-label{
-  position: absolute;
-  z-index: 1;
-  color: white;
-}
-.q-input-target{
-  color: white;
-}
-.q-input-target:hover,
-.q-input-target:focus{
-  color: white;
-}
 body {
 	padding: 0;
 	margin: 0;
@@ -170,58 +132,97 @@ body {
   position: absolute;
   width: 100%;
   height: 100%;
-}
-.q-if{
-  color: white !important;
-}
-.q-input-target{
-  padding-left: 10px;
-}
-.page {
-	position: absolute;
-	left: 50px;
-	right: 50px;
-	top: 10px;
-	overflow: hidden;
-}
-.page h1 {
-	font-size: 40px;
-}
+  #chat-profile-page-container{
+    padding: 10px;
+    top: 30%;
+    .material-icons.edit {
+      position: absolute;
+      right: 8px;
+      bottom: 23px;
+      z-index: 10;
+      font-size: 20px;
+      background: white;
+      border-radius: 50%;
+      color: #ccc;
+    }
+  }
 
-.container3 {
-	position: relative;
-	height: 140px;
-	max-width: 640px;
-	margin: 0px auto;
-  .item {
-    width: 90px;
-    height: 100px;
-    top: 0;
-    bottom: 0;
-    margin: auto;
-    text-align: center;
+  .q-toolbar{
+    background: transparent;
+  }
+  .q-toolbar,
+  #chat-profile-page-container{
+    position: absolute;
+    width: 100%;
+    z-index: 1;
+    color: white;
+  }
+  .q-if-label{
+    position: absolute;
+    z-index: 1;
+    color: white;
+  }
+  .q-input-target{
+    color: white;
+  }
+  .q-input-target:hover,
+  .q-input-target:focus{
+    color: white;
+  }
 
-    .info{
-      img {
-        display: block;
-        width: 90px;
-        height: 90px;
-        margin: auto;
-        border-radius: 50%;
-      }
-      .title {
-        font-weight: bold;
-        font-size: 20px;
+  .q-if{
+    color: white !important;
+  }
+  .q-input-target{
+    padding-left: 10px;
+  }
+  .page {
+    position: absolute;
+    left: 50px;
+    right: 50px;
+    top: 10px;
+    overflow: hidden;
+  }
+  .page h1 {
+    font-size: 40px;
+  }
+
+  .container3 {
+    position: relative;
+    height: 140px;
+    max-width: 640px;
+    margin: 0px auto;
+    .item {
+      width: 90px;
+      height: 100px;
+      top: 0;
+      bottom: 0;
+      margin: auto;
+      text-align: center;
+
+      .info{
+        img {
+          display: block;
+          width: 90px;
+          height: 90px;
+          margin: auto;
+          border-radius: 50%;
+        }
+        .title {
+          font-weight: bold;
+          font-size: 20px;
+        }
       }
     }
   }
+  .layer{
+    background: black;
+    opacity: 0.8;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+  }
 }
-.layer{
-  background: black;
-  opacity: 0.8;
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  top: 0;
-}
+
 </style>
