@@ -121,10 +121,13 @@ export default {
   }
 }
 </script>
-<style scope>
+<style lang="scss">
+
 #chat-profile-page-container{
   padding: 10px;
+  top: 30%;
 }
+
 .edit {
   position: absolute;
   right: 8px;
@@ -140,7 +143,8 @@ export default {
 }
 .q-toolbar,
 #chat-profile-page-container{
-  position: relative;
+  position: absolute;
+  width: 100%;
   z-index: 1;
   color: white;
 }
@@ -170,12 +174,6 @@ body {
 .q-if{
   color: white !important;
 }
-.q-if:hover:before {
-  color: rgba(255,255,255);
-}
-.q-if:before {
-  color: rgba(255,255,255);
-}
 .q-input-target{
   padding-left: 10px;
 }
@@ -195,29 +193,29 @@ body {
 	height: 140px;
 	max-width: 640px;
 	margin: 0px auto;
-  margin-top: 20%;
-  margin-bottom: 20%;
-}
-.container3 .item {
-	width: 90px;
-	height: 100px;
-  top: 0;
-  bottom: 0;
-  margin: auto;
-	text-align: center;
-}
-.container3 .item .info img {
-	display: block;
-	width: 90px;
-	height: 90px;
-  margin: auto;
-	border-radius: 50%;
-}
-.container3 .item .info .title {
-	font-weight: bold;
-	font-size: 20px;
-}
+  .item {
+    width: 90px;
+    height: 100px;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    text-align: center;
 
+    .info{
+      img {
+        display: block;
+        width: 90px;
+        height: 90px;
+        margin: auto;
+        border-radius: 50%;
+      }
+      .title {
+        font-weight: bold;
+        font-size: 20px;
+      }
+    }
+  }
+}
 .layer{
   background: black;
   opacity: 0.8;
