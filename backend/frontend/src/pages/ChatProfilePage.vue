@@ -71,18 +71,20 @@ export default {
       var imageLength = 6
       function getItems (length, groupKey) {
         var arr = []
+        var hideImageIndex = 1
         var groupIndex = groupKey === undefined ? 0 : groupKey
-        var startIndex = groupKey === undefined ? 0 : 2
+        var startIndex = groupKey === undefined ? 0 : hideImageIndex
         var imageIndex = groupIndex === 0 ? -1 : 1
-        for (var i = startIndex; i < (imageLength + 2); ++i) {
-          var replaceGroupKey = ((groupIndex > 0) && ((i - (imageLength - 2)) < 0)) ? groupIndex - 1 : groupIndex
+        for (var i = startIndex; i < (imageLength + hideImageIndex); ++i) {
+          var replaceGroupKey = ((groupIndex > 0) && ((i - (imageLength - 4)) < 0)) ? groupIndex - hideImageIndex : groupIndex
+          console.log(replaceGroupKey)
           arr.push(getItem(itemTemplate, {
             no: i % 60 + 1,
             title: 'avator' + imageIndex,
             link: thisObj.link,
-            customClass: i < 2 ? 'hide' : '',
+            customClass: i < hideImageIndex ? 'hide' : '',
             groupKey: replaceGroupKey,
-            index: ((replaceGroupKey) < groupIndex) ? (((replaceGroupKey) === 0) ? (imageLength + 2) : imageLength) - Math.abs(i - (imageLength - 2)) : ((replaceGroupKey) > 0 ? i - (imageLength - 2) : i - (imageLength - 4))
+            index: ((replaceGroupKey) < groupIndex) ? (((replaceGroupKey) === 0) ? (imageLength + hideImageIndex) : imageLength) - Math.abs(i - (imageLength - 4)) : ((replaceGroupKey) > 0 ? (i - (imageLength - 4)) : (i - (imageLength - 5)))
           }))
           imageIndex++
         }
@@ -199,7 +201,7 @@ body {
   .container3 {
     position: relative;
     height: 140px;
-    max-width: 640px;
+    width: 300px;
     margin: 0px auto;
     .item {
       width: 90px;
