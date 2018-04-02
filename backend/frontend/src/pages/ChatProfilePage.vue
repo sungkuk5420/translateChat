@@ -8,6 +8,9 @@
     </div>
     <!-- <q-input stack-label="닉네임 입력" value="testText"/> -->
     <q-input float-label="닉네임 입력" v-model="text"/>
+    <q-btn round outline small router to="/chatRoom">
+      <q-icon name="favorite" />
+    </q-btn>
   </div>
   <div class="layer"></div>
 </q-layout>
@@ -44,7 +47,10 @@ export default {
   beforeCreate () {
   },
   mounted () {
-    var template3 = `<div class='item {customClass}' onclick='window.ig3.moveTo({groupKey},{index})' ><div class='info'><img src='/statics/avator_{no}.jpg'><i class='material-icons edit'>edit</i><p class='title'>{title}</p></div></div>`
+    var template3 = `<div class='item {customClass}' onclick='if($(this).hasClass("opacity_06")) $(this).removeClass("opacity_06") \n else $(this).addClass("opacity_06") \n
+    $(this).closest(".container3").find(".item").not($(this)).addClass("opacity_1") \n
+    $(this).closest(".container3").find(".item").not($(this)).removeClass("opacity_06") \n
+    window.ig3.moveTo({groupKey},{index})'><div class='info'><img src='/statics/avator_{no}.jpg'><i class='material-icons edit'>edit</i><p class='title'>{title}</p></div></div>`
 
     window.ig3 = this.createGrid('.container3', template3)
     var thisObj = this
@@ -133,6 +139,17 @@ export default {
 }
 </script>
 <style lang="scss">
+.opacity_1{
+  opacity: 1;
+}
+.opacity_06 {
+  opacity: 0.6;
+}
+.q-btn {
+  position: absolute;
+  right: 10px;
+  bottom: 13px;
+}
 body {
 	padding: 0;
 	margin: 0;
