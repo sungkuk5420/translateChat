@@ -47,10 +47,7 @@ export default {
   beforeCreate () {
   },
   mounted () {
-    var template3 = `<div class='item {customClass}' onclick='if($(this).hasClass("opacity_06")) $(this).removeClass("opacity_06") \n else $(this).addClass("opacity_06") \n
-    $(this).closest(".container3").find(".item").not($(this)).addClass("opacity_1") \n
-    $(this).closest(".container3").find(".item").not($(this)).removeClass("opacity_06") \n
-    window.ig3.moveTo({groupKey},{index})'><div class='info'><img src='/statics/avator_{no}.jpg'><i class='material-icons edit'>edit</i><p class='title'>{title}</p></div></div>`
+    var template3 = `<div class='item {customClass}' onclick='window.profileImageClick(this, {groupKey}, {index})'><div class='info'><img src='/statics/avator_{no}.jpg'><i class='material-icons done'>done</i><p class='title'>{title}</p></div></div>`
 
     window.ig3 = this.createGrid('.container3', template3)
     var thisObj = this
@@ -137,6 +134,16 @@ export default {
     }
   }
 }
+
+window.profileImageClick = function (thisObj, groupKey, index) {
+  var $this = $(thisObj)
+  var thisObjSelected = $this.hasClass('selectImage')
+  $('.selectImage').removeClass('selectImage')
+  if (!thisObjSelected) {
+    $this.addClass('selectImage')
+    window.ig3.moveTo(groupKey, index)
+  }
+}
 </script>
 <style lang="scss">
 .opacity_1{
@@ -163,7 +170,7 @@ body {
   #chat-profile-page-container{
     padding: 10px;
     top: 30%;
-    .material-icons.edit {
+    .material-icons.done {
       position: absolute;
       right: 8px;
       bottom: 23px;
@@ -172,6 +179,7 @@ body {
       background: white;
       border-radius: 50%;
       color: #ccc;
+      border:1px solid white ;
     }
   }
 
@@ -228,7 +236,6 @@ body {
       margin: auto;
       text-align: center;
       cursor: pointer;
-
       &.hide{
         display: none;
       }
@@ -240,10 +247,22 @@ body {
           height: 90px;
           margin: auto;
           border-radius: 50%;
+          border: solid 5px white;
         }
         .title {
           font-weight: bold;
           font-size: 20px;
+        }
+      }
+
+      &.selectImage{
+        img {
+          border: solid 5px #119a4a;
+        }
+        .material-icons.done{
+          background: white !important;
+          color: #119a4a !important;
+          border:1px solid #119a4a !important;
         }
       }
     }
