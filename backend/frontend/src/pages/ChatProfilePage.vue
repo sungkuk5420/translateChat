@@ -1,12 +1,9 @@
 <template>
 <q-layout view='hHr LpR lFf' class="profile_wrap">
-  <!-- Header -->
   <back-btn-toolbar :title="'프로필 설정'"></back-btn-toolbar>
-  <!-- sub-routes get injected here: -->
   <div class='overflow-hidde' id='chat-profile-page-container'>
     <div class="container3">
     </div>
-    <!-- <q-input stack-label="닉네임 입력" value="testText"/> -->
     <q-input float-label="닉네임 입력" v-model="text"/>
     <q-btn round outline small router to="/chatRoom">
       <q-icon name="favorite" />
