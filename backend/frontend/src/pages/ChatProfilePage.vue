@@ -58,6 +58,18 @@ export default {
         thisObj.refresh(pos)
       }
     })
+
+    $('.container3').bind('mousewheel', function (e) {
+      let delta = e.originalEvent.wheelDelta
+      let scrollLeft = this.scrollLeft
+      if (delta / 120 > 0) { // scrolling up
+        this.scrollLeft = (scrollLeft - (scrollLeft % 110)) + 110
+      }
+      else { // scrolling down
+        this.scrollLeft = (scrollLeft - (scrollLeft % 110)) - 110
+      }
+      e.preventDefault()
+    })
   },
   methods: {
     createGrid (container, itemTemplate) {
@@ -77,7 +89,6 @@ export default {
         var imageIndex = groupIndex === 0 ? -1 : 1
         for (var i = startIndex; i < (imageLength + hideImageIndex); ++i) {
           var replaceGroupKey = ((groupIndex > 0) && ((i - (imageLength - 4)) < 0)) ? groupIndex - hideImageIndex : groupIndex
-          console.log(replaceGroupKey)
           arr.push(getItem(itemTemplate, {
             no: i % 60 + 1,
             title: 'avator' + imageIndex,
