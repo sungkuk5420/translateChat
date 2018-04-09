@@ -180,7 +180,11 @@ const state = {
       bgColor: ''
     }
   },
-  CHATDATABASE: ''
+  CHATDATABASE: '',
+  createUserInfo: {
+    name: '',
+    img: ''
+  }
 
 }
 
@@ -196,6 +200,9 @@ const getters = {
   },
   getSendMsg () {
     return state.chatSetting.sendMsg
+  },
+  getCreateUserInfo () {
+    return state.createUserInfo
   }
 }
 
@@ -234,6 +241,13 @@ const actions = {
   },
   [M.CREATE_CHAT] ({ commit }, chatName) {
     commit(M.CREATE_CHAT, chatName)
+  },
+  [M.CREATE_USER_INFO] ({ commit }, userInfo) {
+    commit(M.CREATE_USER_INFO, userInfo)
+  },
+  [M.CHANGE_USER_INFO] ({ commit }, data) {
+    commit(M.CHANGE_USER_INFO)
+    this.dispatch(M.GO_OTHER_PAGE, 'chatRoom')
   }
 }
 
@@ -309,6 +323,13 @@ const mutations = {
     }
     state.CHATDATABASE.ref('/chatMessages/' + chatName).push(chatMsg)
     // state.CHATDATABASE.ref(defaultPath).child('/' + state.chatSetting.chatId).push(chatList)
+  },
+  [M.CREATE_USER_INFO] (state, userInfo) {
+    console.log(userInfo)
+    state.createUserInfo = userInfo
+  },
+  [M.CHANGE_USER_INFO] (state) {
+    state.userInfo = state.createUserInfo
   }
 }
 

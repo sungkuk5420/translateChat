@@ -1,19 +1,19 @@
 <template>
 <q-layout view='hHr LpR lFf' class="profile_wrap">
-  <back-btn-toolbar :title="'프로필 설정'"></back-btn-toolbar>
+  <back-btn-toolbar :title="'프로필 설정'" :completeFuncName="'CHANGE_USER_INFO'" :completeData="createUserInfo" :completeBtnLabel="'저장'"></back-btn-toolbar>
   <div class='overflow-hidde' id='chat-profile-page-container'>
     <div class="container3">
     </div>
-    <q-input float-label="닉네임 입력" v-model="text"/>
-    <q-btn round outline small router to="/chatRoom">
-      <q-icon name="favorite" />
-    </q-btn>
+    <q-input float-label="닉네임 입력" v-model="text" max-length="10" @change="setCreateUserInfo" />
+    <div class="q-field-bottom row no-wrap"><div class="col"></div> <div class="q-field-counter col-auto">0 / 10</div></div>
   </div>
   <div class="layer"></div>
 </q-layout>
 </template>
 
 <script>
+import { M } from '../store/types'
+import { mapGetters } from 'vuex'
 import backBtnToolbar from '../components/BackBtnToolbar'
 
 import {
@@ -22,7 +22,8 @@ import {
   QIcon,
   QLayout,
   QFixedPosition,
-  QInput
+  QInput,
+  QField
 } from 'quasar'
 
 export default {
@@ -33,13 +34,20 @@ export default {
     QLayout,
     QFixedPosition,
     QInput,
-    backBtnToolbar
+    backBtnToolbar,
+    QField
   },
   data () {
     return {
       ig: '',
       text: ''
     }
+  },
+  computed: {
+    ...mapGetters({
+      createUserInfo: 'getCreateUserInfo',
+      userInfo: 'getUserInfo'
+    })
   },
   beforeCreate () {
   },
@@ -69,6 +77,11 @@ export default {
         this.scrollLeft = (scrollLeft - (scrollLeft % 110)) - 110
       }
       e.preventDefault()
+    })
+    $('.q-input-target').bind('keyup', function (e) {
+      $('.q-field-counter').text((e.target.value.length > 10 ? 10 : e.target.value.length) + ' / 10')
+      e.target.value = e.target.value.substr(0, 10)
+      thisObj.text = e.target.value
     })
   },
   methods: {
@@ -139,6 +152,13 @@ export default {
         }
         item.el.__INFO__.style.transform = 'scale(' + scale + ')'
       })
+    },
+    setCreateUserInfo (val) {
+      let userInfo = {
+        name: val.substr(0, 10),
+        img: ''
+      }
+      this.$store.dispatch(M.CREATE_USER_INFO, userInfo)
     }
   }
 }
@@ -208,6 +228,7 @@ body {
   }
   .q-input-target{
     color: white;
+    width: 300px;
   }
   .q-input-target:hover,
   .q-input-target:focus{
@@ -219,6 +240,9 @@ body {
   }
   .q-input-target{
     padding-left: 10px;
+  }
+  .q-field-counter{
+    color: white;
   }
   .page {
     position: absolute;
