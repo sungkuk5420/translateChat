@@ -155,8 +155,7 @@ export default {
     },
     setCreateUserInfo (val) {
       let userInfo = {
-        name: val.substr(0, 10),
-        img: ''
+        name: val.substr(0, 10)
       }
       this.$store.dispatch(M.CREATE_USER_INFO, userInfo)
     }

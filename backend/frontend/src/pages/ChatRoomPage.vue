@@ -15,7 +15,7 @@
       :text-color="'black'"
       :bg-color="''"
       :name="msg.name"
-      :avatar="msg.userImage === undefined ? '' : ((msg.name === userInfo.name) ? 'http://quasar-framework.org/quasar-play/apple/statics/boy-avatar.png' : 'http://quasar-framework.org/quasar-play/android/statics/linux-avatar.png')"
+      :avatar="`${msg.userImage}`"
       :text="msg.text"
       :stamp="msg.stamp"
     />

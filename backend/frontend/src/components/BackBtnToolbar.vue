@@ -35,6 +35,12 @@ export default {
       this.$store.dispatch(M.GO_OTHER_PAGE, '')
     },
     completeFunc (completeFuncName, completeData) {
+      if (completeFuncName === 'CHANGE_USER_INFO') {
+        completeData = {
+          name: completeData.name,
+          img: $('.selectImage img').attr('src')
+        }
+      }
       this.$store.dispatch(M[completeFuncName], completeData)
     }
   }

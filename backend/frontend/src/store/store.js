@@ -5,7 +5,7 @@ import router from 'router'
 
 const state = {
   userInfo: {
-    name: 'abc',
+    name: '',
     image: ''
   },
   chatList: [
@@ -246,7 +246,7 @@ const actions = {
     commit(M.CREATE_USER_INFO, userInfo)
   },
   [M.CHANGE_USER_INFO] ({ commit }, data) {
-    commit(M.CHANGE_USER_INFO)
+    commit(M.CHANGE_USER_INFO, data)
     this.dispatch(M.GO_OTHER_PAGE, 'chatRoom')
   }
 }
@@ -303,14 +303,13 @@ const mutations = {
   },
   [M.SEND_CHAT] (state) {
     let message = {
-      name: 'abc',
+      name: state.userInfo.name,
       text: [state.chatSetting.sendMsg],
-      userImage: 'http://quasar-framework.org/quasar-play/apple/statics/boy-avatar.png',
+      userImage: state.userInfo.img,
       timeStamp: 'Yesterday 13'
     }
     state.chatSetting.sendMsg = ''
     state.CHATDATABASE.ref(defaultPath).child('/' + state.chatSetting.chatId).push(message)
-    // state.chatMessages.push(message)
   },
   [M.CHANGE_SEND_MSG] (state, sendMsg) {
     state.chatSetting.sendMsg = sendMsg
@@ -328,8 +327,8 @@ const mutations = {
     console.log(userInfo)
     state.createUserInfo = userInfo
   },
-  [M.CHANGE_USER_INFO] (state) {
-    state.userInfo = state.createUserInfo
+  [M.CHANGE_USER_INFO] (state, createUserInfo) {
+    state.userInfo = createUserInfo
   }
 }
 
