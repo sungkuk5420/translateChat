@@ -1,7 +1,7 @@
 <template>
 <q-layout view="hHr LpR lFf">
   <!-- Header -->
-  <back-btn-toolbar class="header" ></back-btn-toolbar>
+  <back-btn-toolbar class="header" :title="chatSetting.chatId"></back-btn-toolbar>
   <!-- sub-routes get injected here: -->
   <div class="scroll overflow-hidde" id="chat-page-container" style="padding-top: 50px;" v-chat-scroll @scroll="removeFocus()">
     <q-chat-message

@@ -184,12 +184,6 @@ window.profileImageClick = function (thisObj, groupKey, index) {
   right: 10px;
   bottom: 13px;
 }
-body {
-	padding: 0;
-	margin: 0;
-	background: #EDEDF0;
-	font-size: 13px;
-}
 .profile_wrap {
   position: absolute;
   width: 100%;
