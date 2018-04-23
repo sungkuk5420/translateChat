@@ -203,6 +203,9 @@ const getters = {
   },
   getCreateUserInfo () {
     return state.createUserInfo
+  },
+  getChatSetting () {
+    return state.chatSetting
   }
 }
 

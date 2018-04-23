@@ -70,6 +70,7 @@ export default {
     },
     ...mapGetters({
       chatMessages: 'getChatMessages',
+      chatSetting: 'getChatSetting',
       userInfo: 'getUserInfo'
     })
   },
